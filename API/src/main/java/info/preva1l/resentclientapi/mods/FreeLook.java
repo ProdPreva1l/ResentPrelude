@@ -5,6 +5,6 @@ import info.preva1l.resentclientapi.ResentMod;
 public abstract class FreeLook extends ResentMod {
     @Override
     public String getChannel() {
-        return "resent:freelook";
+        return "RES|Freelook";
     }
 }
