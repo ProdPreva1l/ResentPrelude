@@ -29,6 +29,6 @@ public abstract class OffHand extends ResentMod {
 
     @Override
     public String getChannel() {
-        return "resent:offhand";
+        return "RES|OffHand";
     }
 }
