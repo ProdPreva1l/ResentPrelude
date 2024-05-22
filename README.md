@@ -5,7 +5,7 @@ and is made to allow the EaglerCraft client Resent Client to have features not p
 
 
 I am also pushing for it to give server owners more control over what mods Resent Client users can and can't use on their server, similar to Lunar Client's Apollo API.<br/>
-While this is not currently implemented Client Side, it is implemented Server Side, so if you want that, go annoy cire.
+It is now implemented server-side and client-side, please stop annoying cire
 
 
 ## How To Use
