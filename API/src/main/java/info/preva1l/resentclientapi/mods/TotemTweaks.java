@@ -16,6 +16,6 @@ public abstract class TotemTweaks extends ResentMod {
 
     @Override
     public String getChannel() {
-        return "resent:totem_tweaks";
+        return "RES|TOTT";
     }
 }
