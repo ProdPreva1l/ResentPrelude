@@ -10,7 +10,9 @@ public abstract class TotemTweaks extends ResentMod {
         dataRegistry.put("totem_popped", "totem_consumed".getBytes());
     }
 
-    public abstract void sendTotemPoppedEvent(Actor actor);
+    public void sendTotemPoppedEvent(Actor actor) {
+        actor.sendPacket(getChannel(), dataRegistry.get("totem_popped"));
+    }
 
     @Override
     public String getChannel() {

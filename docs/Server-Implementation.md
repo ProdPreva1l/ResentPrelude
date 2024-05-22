@@ -1,4 +1,54 @@
-# Server Side Implementation Specs
+# Server Side Implementation
+
+## Examples
+**Enabling mod hooks**
+```java
+public final class Listeners implements Listener {
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        ResentAPI.getInstance().validateConnection(ResentAPI.getInstance().getActor(player.getUniqueId()));
+    }
+}
+```
+
+**Disabling a mod**
+```java
+public final class MyFreeLookHook extends FreeLook {
+    
+    public MyFreeLookHook() {
+        super();
+        ResentAPI.getInstance().addMod(this);
+
+        enabled = true;
+    }
+
+    @Override
+    public boolean isAllowed() {
+        return false;
+    }
+}
+```
+
+**Example event call**
+```java
+public final class Listeners implements Listener {
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    public void onEntityResurrect(EntityResurrectEvent event) {
+        if (!(event.getEntity() instanceof Player)) {
+            return;
+        }
+        Player player = (Player) event.getEntity();
+        Optional<BukkitTotemTweaks> mod = ResentAPI.getInstance().getMod(BukkitTotemTweaks.class);
+        if (mod.isEmpty() || !mod.get().isAllowed()) {
+            return;
+        }
+        mod.get().sendTotemPoppedEvent(ResentAPI.getInstance().getActor(player.getUniqueId()));
+    }
+}
+```
+
+# Technical Specs
 
 ## General
 - All packets are sent over the PluginMessage channels

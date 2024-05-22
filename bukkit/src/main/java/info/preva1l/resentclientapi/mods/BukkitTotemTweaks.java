@@ -25,7 +25,7 @@ public final class BukkitTotemTweaks extends TotemTweaks {
 
     @Override
     public void sendTotemPoppedEvent(Actor actor) {
-        actor.sendPacket(getChannel(), dataRegistry.get("totem_popped"));
+        super.sendTotemPoppedEvent(actor);
         ResentPlugin.getInstance().debug("Dispatched TotemPoppedEvent to " + actor);
     }
 }

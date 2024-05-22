@@ -4,8 +4,6 @@ import info.preva1l.resentclientapi.Actor;
 import info.preva1l.resentclientapi.ResentAPI;
 import info.preva1l.resentclientapi.ResentPlugin;
 
-import java.util.Arrays;
-
 public final class BukkitOffHand extends OffHand {
 
     public BukkitOffHand() {
@@ -27,17 +25,13 @@ public final class BukkitOffHand extends OffHand {
 
     @Override
     public void sendOffhandEquipEvent(Actor actor, String itemId, boolean enchanted) {
-        actor.sendPacket(this.getChannel(),
-                Arrays.toString(this.getData("equipped"))
-                        .replace("%item_id%", itemId)
-                        .replace("%enchanted%", enchanted + "").getBytes());
+        super.sendOffhandEquipEvent(actor, itemId, enchanted);
+        ResentPlugin.getInstance().debug("Dispatched OffhandEquipEvent to " + actor);
     }
 
     @Override
     public void sendOffhandUnEquipEvent(Actor actor, String itemId, boolean enchanted) {
-        actor.sendPacket(this.getChannel(),
-                Arrays.toString(this.getData("unequipped"))
-                        .replace("%item_id%", itemId)
-                        .replace("%enchanted%", enchanted + "").getBytes());
+        super.sendOffhandUnEquipEvent(actor, itemId, enchanted);
+        ResentPlugin.getInstance().debug("Dispatched OffhandEquipEvent to " + actor);
     }
 }

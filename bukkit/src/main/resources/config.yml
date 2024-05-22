@@ -1,16 +1,16 @@
 debug: false
 
-# If this is true ALL the built-in implementations for each mod will be ignored, m
+# If this is true ALL the built-in implementations for each mod will be ignored
+# Meaning that the hook AND allowed config from below will not do anything
 purely-api: false
 
 # Mod Settings
-# If you have disabled a mod in this config it means you are implementing it yourself
 mods:
   off-hand:
-    allowed: true
-    hook: true
+    allowed: true # If true: the mod is forcibly disabled while the player is connected
+    hook: true # If true: the hook will be handled by this plugin, if false: you will need to handle the hook
   totem-tweaks:
     allowed: true
     hook: true
-  tps-display:
+  free-look:
     allowed: false

@@ -1,5 +1,6 @@
 package info.preva1l.resentclientapi;
 
+import info.preva1l.resentclientapi.mods.BukkitFreeLook;
 import info.preva1l.resentclientapi.mods.BukkitOffHand;
 import info.preva1l.resentclientapi.mods.BukkitTotemTweaks;
 import org.bukkit.configuration.ConfigurationSection;
@@ -19,12 +20,9 @@ public final class ResentPlugin extends JavaPlugin {
             return;
         }
 
-        if (getModConfig().getBoolean("off-hand.hook", true)) {
-            new BukkitOffHand();
-        }
-        if (getModConfig().getBoolean("totem-tweaks.hook", true)) {
-            new BukkitTotemTweaks();
-        }
+        new BukkitOffHand();
+        new BukkitTotemTweaks();
+        new BukkitFreeLook();
 
         getServer().getPluginManager().registerEvents(new BaseImplementation(this), this);
 
