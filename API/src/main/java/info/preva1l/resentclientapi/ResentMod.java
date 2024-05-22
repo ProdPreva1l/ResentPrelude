@@ -26,7 +26,9 @@ public abstract class ResentMod {
 
     public abstract boolean isAllowed();
 
-    public abstract boolean isOfficiallyHooked();
+    public boolean isOfficiallyHooked() {
+        return false;
+    }
 
     public byte[] getData(String key) {
         byte[] data = dataRegistry.get(key);

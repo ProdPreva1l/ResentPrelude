@@ -1,8 +1,12 @@
 package info.preva1l.resentclientapi;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 public final class BukkitResentAPI extends ResentAPI {
 
@@ -10,6 +14,15 @@ public final class BukkitResentAPI extends ResentAPI {
 
     public BukkitResentAPI() {
         setInstance(this);
+    }
+
+    @Override
+    public Actor getActor(UUID uuid) throws IllegalStateException {
+        Player player = Bukkit.getPlayer(uuid);
+        if (player == null) {
+            throw new IllegalStateException("An actor must be online! Attempted UUID: " + uuid.toString());
+        }
+        return BukkitAdapter.adaptPlayer(ResentPlugin.getInstance(), player);
     }
 
     @Override

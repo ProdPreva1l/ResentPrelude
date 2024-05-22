@@ -1,6 +1,7 @@
 package info.preva1l.resentclientapi;
 
 import info.preva1l.resentclientapi.mods.BukkitOffHand;
+import info.preva1l.resentclientapi.mods.BukkitTotemTweaks;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -9,12 +10,23 @@ public final class ResentPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        new BukkitResentAPI();
-        new BukkitOffHand();
+        instance = this;
 
-        if (!getConfig().getBoolean("purely-api")) {
-            getServer().getPluginManager().registerEvents(new BaseImplementation(this), this);
+        new BukkitResentAPI();
+
+        if (getConfig().getBoolean("purely-api")) {
+            getLogger().info("Started BukkitResentAPI");
+            return;
         }
+
+        if (getModConfig().getBoolean("off-hand.hook", true)) {
+            new BukkitOffHand();
+        }
+        if (getModConfig().getBoolean("totem-tweaks.hook", true)) {
+            new BukkitTotemTweaks();
+        }
+
+        getServer().getPluginManager().registerEvents(new BaseImplementation(this), this);
 
         getLogger().info("Started BukkitResentAPI");
     }

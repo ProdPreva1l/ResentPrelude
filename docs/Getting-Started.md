@@ -1,3 +1,5 @@
+[![GitHub Release](https://img.shields.io/github/release/ProdPreva1l/ResentClientAPI.svg?style=flat)]()
+
 ## Usage for Server Owners
 If you are a server owner, the usage for the ResentClient API is pretty simple.
 1. Go to the latest release on GitHub https://github.com/ProdPreva1l/ResentClientAPI/releases/latest/

@@ -2,12 +2,21 @@ package info.preva1l.resentclientapi;
 
 
 import java.util.Optional;
+import java.util.UUID;
 
 public abstract class ResentAPI {
     /**
      * The API instance.
      */
     private static ResentAPI instance = null;
+
+    /**
+     * Get an actor from a UUID, the player who owns the UUID must be online
+     * @param uuid uuid of the actor to get
+     * @return an Actor object
+     * @throws IllegalStateException if the player is not online
+     */
+    public abstract Actor getActor(UUID uuid) throws IllegalStateException;
 
     /**
      * Run checks on all mods to either send the disable or the init packet to the client

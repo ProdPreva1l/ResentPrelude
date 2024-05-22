@@ -20,7 +20,7 @@ public final class BukkitTotemTweaks extends TotemTweaks {
 
     @Override
     public boolean isOfficiallyHooked() {
-        return ResentPlugin.getInstance().getModConfig().getBoolean("totem-tweaks.hook", true);
+        return true;
     }
 
     @Override

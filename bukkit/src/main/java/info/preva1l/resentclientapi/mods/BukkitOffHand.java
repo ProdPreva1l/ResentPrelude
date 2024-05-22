@@ -22,7 +22,7 @@ public final class BukkitOffHand extends OffHand {
 
     @Override
     public boolean isOfficiallyHooked() {
-        return ResentPlugin.getInstance().getModConfig().getBoolean("off-hand.hook", true);
+        return true;
     }
 
     @Override
