@@ -1,0 +1,16 @@
+debug: false
+
+# If this is true ALL the built-in implementations for each mod will be ignored, m
+purely-api: false
+
+# Mod Settings
+# If you have disabled a mod in this config it means you are implementing it yourself
+mods:
+  off-hand:
+    allowed: true
+    hook: true
+  totem-tweaks:
+    allowed: true
+    hook: true
+  tps-display:
+    allowed: false

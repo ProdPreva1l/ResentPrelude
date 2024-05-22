@@ -1,0 +1,114 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'info.preva1l'
+version = '1.0'
+
+ext {
+    set 'version', version.toString()
+}
+
+allprojects {
+    apply plugin: 'com.github.johnrengelman.shadow'
+    apply plugin: 'maven-publish'
+    apply plugin: 'java'
+
+    compileJava.options.encoding = 'UTF-8'
+    compileJava.options.release.set 11
+    javadoc.options.encoding = 'UTF-8'
+    javadoc.options.addStringOption('Xdoclint:none', '-quiet')
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+    }
+
+    processResources {
+        filesMatching(['**/*.json', '**/*.yml']) {
+            filter ReplaceTokens as Class, beginToken: '${', endToken: '}',
+                    tokens: rootProject.ext.properties
+        }
+    }
+}
+
+subprojects {
+    version rootProject.version
+    archivesBaseName = "${rootProject.name}-${project.name.capitalize()}"
+
+    task generateJavadoc(type: Javadoc) {
+        sourceSets.main.java.srcDirs.each { dir ->
+            source(dir)
+        }
+        classpath += configurations.compileClasspath
+        options.addStringOption('Xdoclint:none', '-quiet')
+        destinationDir = file("$buildDir/docs/javadoc")
+    }
+
+    task javadocJar(type: Jar, dependsOn: generateJavadoc) {
+        dependsOn generateJavadoc
+        archiveFileName = "${rootProject.name}-${project.name.capitalize()}-javadoc.jar"
+        from generateJavadoc.destinationDir
+    }
+
+    javadoc {
+        if (JavaVersion.current().isJava9Compatible()) {
+            options.addBooleanOption('html5', true)
+        }
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        dependsOn classes
+        archiveFileName = "${rootProject.name}-${project.name.capitalize()}-sources.jar"
+        from sourceSets.main.allSource
+    }
+
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId = "info.preva1l"
+                artifactId = "${project.name.toLowerCase()}"
+                version = "${version}"
+
+                artifact(shadowJar) {
+                    classifier = ''
+                }
+                artifact(javadocJar) {
+                    classifier = 'javadoc'
+                }
+                artifact(sourcesJar) {
+                    classifier = 'sources'
+                }
+
+            }
+        }
+        repositories {
+            maven {
+                name = "notYet"
+                url = "notYet"
+                credentials(PasswordCredentials)
+                authentication {
+                    basic(BasicAuthentication)
+                }
+            }
+        }
+    }
+
+    shadowJar {
+        destinationDirectory.set(file("$rootDir/target"))
+        archiveClassifier.set('')
+        minimize()
+    }
+
+    jar.dependsOn shadowJar
+    clean.delete "$rootDir/target"
+}
+
+logger.lifecycle("Building ResentClientAPI ${version}")

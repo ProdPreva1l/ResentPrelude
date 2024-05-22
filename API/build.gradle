@@ -1,0 +1,11 @@
+repositories {
+}
+
+dependencies {
+}
+
+shadowJar {
+    minimize()
+}
+jar.dependsOn shadowJar
+logger.lifecycle("Building ResentAPI ${version}")

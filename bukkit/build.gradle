@@ -1,0 +1,16 @@
+repositories {
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    implementation project(":API")
+}
+
+shadowJar {
+    minimize()
+}
+jar.dependsOn shadowJar
+logger.lifecycle("Building BukkitResentAPI ${version}")
