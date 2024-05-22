@@ -86,3 +86,10 @@ It was requested that I make this fire only if the totem was in the secondary ha
 - Your implementation should ignore cancelled to avoid weirdness
 - Your implementation should have Highest priority so it runs last to avoid conflicts
 - You should only fire this method on the `EntityResurrectEvent` but there is rare cases where you may need to fire it elsewhere (Example: custom dungeons)
+
+### ServerTps (Mod ID: `server_tps`)
+- Must send the REAL server TPS not spoofed :face_palm:
+- Should send every second, may be adjusted at will
+
+### FreeLook (Mod ID: `freelook`)
+- This mod has no hooks, but the client must respect the `disable` packet

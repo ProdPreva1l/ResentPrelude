@@ -1,6 +1,7 @@
 package info.preva1l.resentclientapi;
 
 import info.preva1l.resentclientapi.mods.BukkitOffHand;
+import info.preva1l.resentclientapi.mods.BukkitServerTps;
 import info.preva1l.resentclientapi.mods.BukkitTotemTweaks;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -12,6 +13,7 @@ import org.bukkit.event.entity.EntityResurrectEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -31,9 +33,9 @@ public class BaseImplementation implements Listener {
         // Cires was to track the ItemStacks client side, while this makes more sense,
         // I think we should take as much stress off the client as possible
         // if you come up with a better implementation please make a PR
-        Runnable runnable = () -> {
-            Optional<BukkitOffHand> mod = ResentAPI.getInstance().getMod(BukkitOffHand.class);
-            if (mod.isEmpty() || !mod.get().isAllowed() || !mod.get().isOfficiallyHooked()) {
+        Runnable offhandRunnable = () -> {
+            Optional<BukkitOffHand> offhandMod = ResentAPI.getInstance().getMod(BukkitOffHand.class);
+            if (offhandMod.isEmpty() || !offhandMod.get().isAllowed() || !offhandMod.get().isOfficiallyHooked()) {
                 return;
             }
             for (Player player : Bukkit.getOnlinePlayers()) {
@@ -48,16 +50,36 @@ public class BaseImplementation implements Listener {
                 }
                 offhandItemMap.replace(player, currentOffhand);
                 if (currentOffhand.getType().isAir()) {
-                    mod.get().sendOffhandUnEquipEvent(BukkitAdapter.adaptPlayer(plugin, player),
+                    offhandMod.get().sendOffhandUnEquipEvent(BukkitAdapter.adaptPlayer(plugin, player),
                             Material.AIR.name(), false);
                 } else {
-                    mod.get().sendOffhandEquipEvent(BukkitAdapter.adaptPlayer(plugin, player),
+                    offhandMod.get().sendOffhandEquipEvent(BukkitAdapter.adaptPlayer(plugin, player),
                             currentOffhand.getType().name(), !currentOffhand.getEnchantments().isEmpty());
                 }
             }
         };
 
-        plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, runnable, 1L, 10L);
+        Runnable tpsRunnable = () -> {
+            Optional<BukkitServerTps> tpsMod = ResentAPI.getInstance().getMod(BukkitServerTps.class);
+            if (tpsMod.isEmpty() || !tpsMod.get().isAllowed() || !tpsMod.get().isOfficiallyHooked()) {
+                return;
+            }
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                tpsMod.get().sendServerTpsUpdate(BukkitAdapter.adaptPlayer(plugin, player), getTPS()[0]);
+            }
+        };
+
+        ResentAPI.getInstance().getMod(BukkitServerTps.class).ifPresent((tpsMod) -> {
+            if (tpsMod.isOfficiallyHooked()) {
+                plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, tpsRunnable, 1L, 20L);
+            }
+        });
+
+        ResentAPI.getInstance().getMod(BukkitOffHand.class).ifPresent((offHandMod) -> {
+            if (offHandMod.isOfficiallyHooked()) {
+                plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, offhandRunnable, 1L, 10L);
+            }
+        });
     }
 
     @EventHandler
@@ -76,5 +98,25 @@ public class BaseImplementation implements Listener {
             }
             mod.get().sendTotemPoppedEvent(BukkitAdapter.adaptPlayer(plugin, player));
         }
+    }
+
+
+    private double[] getTPS() {
+        try {
+            Object minecraftServer = getMinecraftServer();
+            Field tpsField = minecraftServer.getClass().getDeclaredField("recentTps");
+            tpsField.setAccessible(true);
+            return (double[]) tpsField.get(minecraftServer);
+        } catch (Exception e) {
+            ResentPlugin.getInstance().debug(e.getMessage());
+            return new double[]{-1, -1, -1};
+        }
+    }
+
+    private Object getMinecraftServer() throws Exception {
+        Object craftServer = Bukkit.getServer();
+        Field consoleField = craftServer.getClass().getDeclaredField("console");
+        consoleField.setAccessible(true);
+        return consoleField.get(craftServer);
     }
 }

@@ -35,3 +35,10 @@ It was requested that I make this fire only if the totem was in the secondary ha
 
 - The totem tweaks mod sends the `totem_consumed` packet when the server calls the `EntityResurrectEvent`
 - Depending on the implementation there is a rare chance that the packet is sent even if the `EntityResurrectEvent` is cancelled, this is plugin compatability issue, this is not the fault of me or you, the base implementation ignores cancelled events and runs last in the handlers chain
+
+### ServerTps (Mod ID: `server_tps`)
+- The data of this mod contains a raw string of a double
+- Should send every second, may be adjusted at will by the server side implementation though
+
+### FreeLook (Mod ID: `freelook`)
+- This mod has no hooks, but you must respect the `disable` packet
