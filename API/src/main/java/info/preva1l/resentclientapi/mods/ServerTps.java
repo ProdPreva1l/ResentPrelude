@@ -19,6 +19,6 @@ public abstract class ServerTps extends ResentMod {
 
     @Override
     public String getChannel() {
-        return "resent:server_tps";
+        return "RES|STps";
     }
 }
