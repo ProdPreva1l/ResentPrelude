@@ -111,4 +111,4 @@ subprojects {
     clean.delete "$rootDir/target"
 }
 
-logger.lifecycle("Building ResentClientAPI ${version}")
+logger.lifecycle("Building PreludeAPI ${version}")

@@ -7,7 +7,7 @@ public final class Listeners implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        ResentAPI.getInstance().validateConnection(ResentAPI.getInstance().getActor(player.getUniqueId()));
+        Prelude.getInstance().validateConnection(Prelude.getInstance().getActor(player.getUniqueId()));
     }
 }
 ```
@@ -18,7 +18,7 @@ public final class MyFreeLookHook extends FreeLook {
     
     public MyFreeLookHook() {
         super();
-        ResentAPI.getInstance().addMod(this);
+        Prelude.getInstance().addMod(this);
 
         enabled = true;
     }
@@ -33,17 +33,17 @@ public final class MyFreeLookHook extends FreeLook {
 **Example event call**
 ```java
 public final class Listeners implements Listener {
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onEntityResurrect(EntityResurrectEvent event) {
         if (!(event.getEntity() instanceof Player)) {
             return;
         }
         Player player = (Player) event.getEntity();
-        Optional<BukkitTotemTweaks> mod = ResentAPI.getInstance().getMod(BukkitTotemTweaks.class);
+        Optional<TotemTweaks> mod = Prelude.getInstance().getMod(TotemTweaks.class);
         if (mod.isEmpty() || !mod.get().isAllowed()) {
             return;
         }
-        mod.get().sendTotemPoppedEvent(ResentAPI.getInstance().getActor(player.getUniqueId()));
+        mod.get().sendTotemPoppedEvent(Prelude.getInstance().getActor(player.getUniqueId()));
     }
 }
 ```
@@ -52,13 +52,13 @@ public final class Listeners implements Listener {
 
 ## General
 - All packets are sent over the PluginMessage channels
-- All channels use the `resent:` namespace (Example: `resent:totem_tweaks`)
-- Your plugin must depend on `BukkitResentAPI`
-- You must run `ResentAPI.getInstance().validateConnection(Actor actor)` sometime in the connection phase, preferably the on join event to avoid conflicts
+- All channels use the `PRE` namespace (Example: `PRE|TTOT`)
+- Your plugin must depend on `PreludeAPI`
+- You must run `Prelude.getInstance().validateConnection(Actor actor)` sometime in the connection phase, preferably the on join event to avoid conflicts
 
 All methods that require a player use the `Actor` object
-you can obtain an Actor by adding [BukkitAdapter.java](/bukkit/src/main/java/info/preva1l/resentclientapi/BukkitAdapter.java) to your project
-or more simply by using `ResentAPI.getInstance().getActor(playersUUID)`
+you can obtain an Actor by adding [PlayeAdapter.java](/Bukkit-Adapter/src/main/java/info/preva1l/prelude/adapter/PlayerAdapter.java) to your project
+or more simply by using `Prelude.getInstance().getActor(playersUUID)`
 
 ## Mod Details
 - All mods have the same base data, these are `init`, `disable` or an empty data field
@@ -68,7 +68,7 @@ or more simply by using `ResentAPI.getInstance().getActor(playersUUID)`
 ## Mod Specific Details
 In this section you will find details that are specific to each mod
 
-### OffHand (Mod ID: `offhand`)
+### OffHand (Mod ID: `OffHand`)
 <details>
 <summary><strong>Caveat with the default implementation</strong></summary>
 
@@ -80,16 +80,16 @@ You only have to construct an item stack with the material type and enchant it w
 
 - The offhand mod needs to notify the client everytime the player has a new item in their offhand, including if the item is air, how you do this is up to you
 
-### TotemTweaks (Mod ID: `totem_tweaks`)
+### TotemTweaks (Mod ID: `TTOT`)
 It was requested that I make this fire only if the totem was in the secondary hand but there is no way of checking this, if you find a way feel free to make a PR.
 
 - Your implementation should ignore cancelled to avoid weirdness
 - Your implementation should have Highest priority so it runs last to avoid conflicts
 - You should only fire this method on the `EntityResurrectEvent` but there is rare cases where you may need to fire it elsewhere (Example: custom dungeons)
 
-### ServerTps (Mod ID: `server_tps`)
+### ServerTps (Mod ID: `STps`)
 - Must send the REAL server TPS not spoofed :face_palm:
 - Should send every second, may be adjusted at will
 
-### FreeLook (Mod ID: `freelook`)
+### FreeLook (Mod ID: `FreeLook`)
 - This mod has no hooks, but the client must respect the `disable` packet

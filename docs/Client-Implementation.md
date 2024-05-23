@@ -2,7 +2,7 @@
 
 ## General
 - All packets are sent over the PluginMessage channels
-- All channels use the `resent:` namespace (Example: `resent:totem_tweaks`)
+- All channels use the `PRE` namespace followed by the mod id (Example: `PRE|TOTT`)
 - Because we use the PluginChannel, all packets are `Play` packets
 
 ## Mod Details
@@ -14,7 +14,7 @@
 ## Mod Specific Details
 In this section you will find details that are specific to each mod
 
-### OffHand (Mod ID: `offhand`)
+### OffHand (Mod ID: `OffHand`)
 <details>
 <summary><strong>Caveat with the server side implementation</strong></summary>
 
@@ -30,15 +30,15 @@ You only have to construct an item stack with the material type and enchant it w
 - - The first packet is an Equip packet, the packet is formatted as follows `{"action":"equip_item","item_id":"%item_id%","enchanted":%enchanted%}` where `%item_id%` is replaced with the items enum name as defined in the Bukkit API and `%enchanted%` is replaced with a boolean depending on whether the item has enchants or not 
 - - The second packet is an Un-Equip packet, the packet is formatted as follows `{"action":"un-equip_item","item_id":"AIR","enchanted":false}`
 
-### TotemTweaks (Mod ID: `totem_tweaks`)
+### TotemTweaks (Mod ID: `TOTT`)
 It was requested that I make this fire only if the totem was in the secondary hand but there is no way of checking this, if you find a way feel free to make a PR.
 
 - The totem tweaks mod sends the `totem_consumed` packet when the server calls the `EntityResurrectEvent`
 - Depending on the implementation there is a rare chance that the packet is sent even if the `EntityResurrectEvent` is cancelled, this is plugin compatability issue, this is not the fault of me or you, the base implementation ignores cancelled events and runs last in the handlers chain
 
-### ServerTps (Mod ID: `server_tps`)
+### ServerTps (Mod ID: `STps`)
 - The data of this mod contains a raw string of a double
 - Should send every second, may be adjusted at will by the server side implementation though
 
-### FreeLook (Mod ID: `freelook`)
+### FreeLook (Mod ID: `FreeLook`)
 - This mod has no hooks, but you must respect the `disable` packet

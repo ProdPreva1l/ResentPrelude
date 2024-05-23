@@ -1,2 +1,2 @@
-rootProject.name = 'ResentClientAPI'
-include('API', 'bukkit')
+rootProject.name = 'Prelude'
+include('API', 'Bukkit-Core', 'Bukkit-Adapter', 'Bukkit-Adapter-Post-1-8-9')

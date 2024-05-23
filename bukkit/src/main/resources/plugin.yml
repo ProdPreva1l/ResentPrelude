@@ -1,4 +1,0 @@
-name: BukkitResentAPI
-version: '${version}'
-main: info.preva1l.resentclientapi.BukkitResentAPI
-api-version: '1.16'
