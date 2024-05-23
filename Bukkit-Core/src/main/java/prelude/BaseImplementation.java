@@ -1,10 +1,11 @@
-package info.preva1l.prelude;
+package prelude;
 
-import info.preva1l.prelude.adapter.PlayerAdapter;
-import info.preva1l.prelude.adapter.VersionAdapter;
-import info.preva1l.prelude.api.Prelude;
-import info.preva1l.prelude.mods.BukkitOffHand;
-import info.preva1l.prelude.mods.BukkitServerTps;
+import prelude.adapter.PlayerAdapter;
+import prelude.adapter.VersionAdapter;
+import prelude.api.Prelude;
+import prelude.mods.BukkitAnchorRenderer;
+import prelude.mods.BukkitOffHand;
+import prelude.mods.BukkitServerTps;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -40,18 +41,17 @@ public class BaseImplementation implements Listener {
         });
 
 
-
         // Post 1.8 things (runs on 1.16.5 api)
-        plugin.getAdapter().ifPresent(VersionAdapter::registerResurrectEvent);
+        plugin.getAdapter().ifPresent(VersionAdapter::registerEvents);
 
         Prelude.getInstance().getMod(BukkitOffHand.class).ifPresent((offHandMod) ->
-                plugin.getAdapter().ifPresent((adapter) -> {
-                    if (!offHandMod.isOfficiallyHooked()) {
-                        return;
-                    }
-                    plugin.getServer().getScheduler()
-                            .runTaskTimerAsynchronously(plugin, adapter.getOffHandRunnable(), 1L, 10L);
-                })
+            plugin.getAdapter().ifPresent((adapter) -> {
+                if (!offHandMod.isOfficiallyHooked()) {
+                    return;
+                }
+                plugin.getServer().getScheduler()
+                        .runTaskTimerAsynchronously(plugin, adapter.getOffHandRunnable(), 1L, 10L);
+            })
         );
     }
 

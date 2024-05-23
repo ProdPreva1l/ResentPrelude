@@ -1,11 +1,11 @@
-package info.preva1l.prelude.api.mods;
+package prelude.api.mods;
 
-import info.preva1l.prelude.api.Actor;
-import info.preva1l.prelude.api.PreludeMod;
+import prelude.api.Actor;
+import prelude.api.ResentMod;
 
 import java.util.Arrays;
 
-public abstract class OffHand extends PreludeMod {
+public abstract class OffHand extends ResentMod {
 
     protected OffHand() {
         super();
@@ -28,7 +28,7 @@ public abstract class OffHand extends PreludeMod {
     }
 
     @Override
-    public String getChannel() {
+    public final String getChannel() {
         return "PRE|OffHand";
     }
 }

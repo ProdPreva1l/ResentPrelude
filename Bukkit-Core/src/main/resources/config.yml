@@ -17,3 +17,6 @@ mods:
   tps-mod:
     allowed: true
     hook: true
+  anchor-renderer:
+    allowed: true
+    hook: true

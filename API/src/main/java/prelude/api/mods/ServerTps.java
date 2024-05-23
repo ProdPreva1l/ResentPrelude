@@ -1,11 +1,11 @@
-package info.preva1l.prelude.api.mods;
+package prelude.api.mods;
 
-import info.preva1l.prelude.api.Actor;
-import info.preva1l.prelude.api.PreludeMod;
+import prelude.api.Actor;
+import prelude.api.ResentMod;
 
 import java.util.Arrays;
 
-public abstract class ServerTps extends PreludeMod {
+public abstract class ServerTps extends ResentMod {
     protected ServerTps() {
         super();
         dataRegistry.put("tps_count", "%server-tps%".getBytes());
@@ -18,7 +18,7 @@ public abstract class ServerTps extends PreludeMod {
     }
 
     @Override
-    public String getChannel() {
+    public final String getChannel() {
         return "PRE|STps";
     }
 }

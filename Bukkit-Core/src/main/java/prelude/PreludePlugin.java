@@ -1,10 +1,7 @@
-package info.preva1l.prelude;
+package prelude;
 
-import info.preva1l.prelude.adapter.VersionAdapter;
-import info.preva1l.prelude.mods.BukkitFreeLook;
-import info.preva1l.prelude.mods.BukkitOffHand;
-import info.preva1l.prelude.mods.BukkitServerTps;
-import info.preva1l.prelude.mods.BukkitTotemTweaks;
+import prelude.adapter.VersionAdapter;
+import prelude.mods.*;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -46,6 +43,7 @@ public final class PreludePlugin extends JavaPlugin {
         new BukkitTotemTweaks();
         new BukkitFreeLook();
         new BukkitServerTps();
+        new BukkitAnchorRenderer();
 
         getServer().getPluginManager().registerEvents(new BaseImplementation(this), this);
 

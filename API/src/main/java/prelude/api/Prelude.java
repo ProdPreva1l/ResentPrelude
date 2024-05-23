@@ -1,4 +1,4 @@
-package info.preva1l.prelude.api;
+package prelude.api;
 
 
 import java.util.Optional;
@@ -30,14 +30,14 @@ public abstract class Prelude {
      * @param modClass the mod to get
      * @return the instance of the mod
      */
-    public abstract <T extends PreludeMod> Optional<T> getMod(Class<T> modClass);
+    public abstract <T extends ResentMod> Optional<T> getMod(Class<T> modClass);
 
     /**
      * Register a ResentMod hook.
      * @param mod the mod instance to register
      * @apiNote Internal use only
      */
-    public abstract void addMod(PreludeMod mod);
+    public abstract void addMod(ResentMod mod);
 
     /**
      * Get the API instance.

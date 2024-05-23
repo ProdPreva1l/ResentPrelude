@@ -1,10 +1,15 @@
-package info.preva1l.prelude;
+package prelude;
 
-import info.preva1l.prelude.adapter.PlayerAdapter;
-import info.preva1l.prelude.adapter.VersionAdapter;
-import info.preva1l.prelude.api.Prelude;
-import info.preva1l.prelude.api.mods.OffHand;
-import info.preva1l.prelude.api.mods.TotemTweaks;
+import org.bukkit.block.data.type.RespawnAnchor;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import prelude.adapter.PlayerAdapter;
+import prelude.adapter.VersionAdapter;
+import prelude.api.Prelude;
+import prelude.api.mods.AnchorRenderer;
+import prelude.api.mods.OffHand;
+import prelude.api.mods.TotemTweaks;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -40,8 +45,59 @@ public final class Adapter_1_16_5_And_Later implements VersionAdapter, Listener 
         }
     }
 
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onAnchorPlace(BlockPlaceEvent event) {
+        if (event.getBlockPlaced().getType() != Material.RESPAWN_ANCHOR)
+            return;
+
+        Optional<AnchorRenderer> mod = Prelude.getInstance().getMod(AnchorRenderer.class);
+
+        if (mod.isEmpty() || !mod.get().isAllowed() || !mod.get().isOfficiallyHooked())
+            return;
+
+        int x = event.getBlockPlaced().getX();
+        int y = event.getBlockPlaced().getY();
+        int z = event.getBlockPlaced().getZ();
+
+        mod.get().sendPlacedAnchorPacket(PlayerAdapter.adaptPlayer(plugin, event.getPlayer()), x, y, z);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onAnchorInteract(PlayerInteractEvent event) {
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK)
+            return;
+
+        if (event.getClickedBlock() == null)
+            return;
+
+        if (event.getClickedBlock().getType() != Material.RESPAWN_ANCHOR)
+            return;
+
+        if (event.getPlayer().getInventory().getItemInMainHand().getType() != Material.GLOWSTONE)
+            return;
+
+        Optional<AnchorRenderer> mod = Prelude.getInstance().getMod(AnchorRenderer.class);
+
+        if (mod.isEmpty() || !mod.get().isAllowed() || !mod.get().isOfficiallyHooked())
+            return;
+
+        int x = event.getClickedBlock().getX();
+        int y = event.getClickedBlock().getY();
+        int z = event.getClickedBlock().getZ();
+
+        int charges = ((RespawnAnchor) event.getClickedBlock().getBlockData()).getCharges();
+
+        // shi gonna explode
+        if (charges == 3) {
+            mod.get().sendBlownUpAnchorPacket(PlayerAdapter.adaptPlayer(plugin, event.getPlayer()), x, y, z);
+            return;
+        }
+
+        mod.get().sendInteractedAnchorPacket(PlayerAdapter.adaptPlayer(plugin, event.getPlayer()), x, y, z, charges + 1);
+    }
+
     @Override
-    public void registerResurrectEvent() {
+    public void registerEvents() {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
