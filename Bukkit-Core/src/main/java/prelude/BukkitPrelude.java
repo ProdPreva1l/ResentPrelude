@@ -1,9 +1,9 @@
-package info.preva1l.prelude;
+package prelude;
 
-import info.preva1l.prelude.adapter.PlayerAdapter;
-import info.preva1l.prelude.api.Actor;
-import info.preva1l.prelude.api.Prelude;
-import info.preva1l.prelude.api.PreludeMod;
+import prelude.adapter.PlayerAdapter;
+import prelude.api.Actor;
+import prelude.api.Prelude;
+import prelude.api.ResentMod;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public final class BukkitPrelude extends Prelude {
 
-    private static final Set<PreludeMod> mods = new HashSet<>();
+    private static final Set<ResentMod> mods = new HashSet<>();
 
     public BukkitPrelude() {
         setInstance(this);
@@ -32,7 +32,7 @@ public final class BukkitPrelude extends Prelude {
     @Override
     public void validateConnection(Actor actor) {
         PreludePlugin.getInstance().debug("Validating mods for " + actor);
-        for (PreludeMod mod : mods) {
+        for (ResentMod mod : mods) {
             if (!mod.isEnabled()) {
                 PreludePlugin.getInstance().debug(String.format("Mod %s did not get enabled",
                         mod.getClass().getSimpleName()));
@@ -51,7 +51,7 @@ public final class BukkitPrelude extends Prelude {
     }
 
     @Override
-    public <T extends PreludeMod> Optional<T> getMod(Class<T> modClass) {
+    public <T extends ResentMod> Optional<T> getMod(Class<T> modClass) {
         return mods.stream()
                 .filter(mod -> modClass.isAssignableFrom(mod.getClass()))
                 .map(modClass::cast)
@@ -59,7 +59,7 @@ public final class BukkitPrelude extends Prelude {
     }
 
     @Override
-    public void addMod(PreludeMod mod) {
+    public void addMod(ResentMod mod) {
         mods.add(mod);
     }
 }

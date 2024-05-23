@@ -1,6 +1,6 @@
-package info.preva1l.prelude.adapter;
+package prelude.adapter;
 
-import info.preva1l.prelude.api.Actor;
+import prelude.api.Actor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 

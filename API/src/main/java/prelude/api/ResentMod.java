@@ -1,14 +1,14 @@
-package info.preva1l.prelude.api;
+package prelude.api;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class PreludeMod {
+public abstract class ResentMod {
     protected boolean enabled = false;
 
     protected Map<String, byte[]> dataRegistry = new HashMap<>();
 
-    protected PreludeMod() {
+    protected ResentMod() {
         dataRegistry.put("empty", new byte[0]);
         dataRegistry.put("init", "init".getBytes());
         dataRegistry.put("disable", "disable".getBytes());

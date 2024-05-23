@@ -1,9 +1,9 @@
-package info.preva1l.prelude.api.mods;
+package prelude.api.mods;
 
-import info.preva1l.prelude.api.Actor;
-import info.preva1l.prelude.api.PreludeMod;
+import prelude.api.Actor;
+import prelude.api.ResentMod;
 
-public abstract class TotemTweaks extends PreludeMod {
+public abstract class TotemTweaks extends ResentMod {
 
     protected TotemTweaks() {
         super();
@@ -15,7 +15,7 @@ public abstract class TotemTweaks extends PreludeMod {
     }
 
     @Override
-    public String getChannel() {
+    public final String getChannel() {
         return "PRE|TOTT";
     }
 }

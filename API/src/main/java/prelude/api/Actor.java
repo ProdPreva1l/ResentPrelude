@@ -1,4 +1,4 @@
-package info.preva1l.prelude.api;
+package prelude.api;
 
 import java.util.UUID;
 

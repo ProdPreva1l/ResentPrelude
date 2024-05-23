@@ -1,9 +1,9 @@
-package info.preva1l.prelude.mods;
+package prelude.mods;
 
-import info.preva1l.prelude.PreludePlugin;
-import info.preva1l.prelude.api.Actor;
-import info.preva1l.prelude.api.Prelude;
-import info.preva1l.prelude.api.mods.ServerTps;
+import prelude.PreludePlugin;
+import prelude.api.Actor;
+import prelude.api.Prelude;
+import prelude.api.mods.ServerTps;
 
 public final class BukkitServerTps extends ServerTps {
 
