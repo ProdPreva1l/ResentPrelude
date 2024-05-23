@@ -1,4 +1,4 @@
 name: PreludeAPI
 version: '${version}'
 main: info.preva1l.prelude.PreludePlugin
-api-version: '1.16'
+api-version: '1.8'
