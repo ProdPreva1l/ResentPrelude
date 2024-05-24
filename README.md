@@ -1,3 +1,5 @@
+[![PR Tests](https://github.com/ProdPreva1l/ResentPrelude/actions/workflows/pr_tests.yml/badge.svg?branch=master&event=pull_request)](https://github.com/ProdPreva1l/ResentPrelude/actions/workflows/pr_tests.yml)
+
 # Prelude API (Resent Clients API for servers)
 
 This API is the joint effort of `Preva1l` & `cire` at the request of `cire`
