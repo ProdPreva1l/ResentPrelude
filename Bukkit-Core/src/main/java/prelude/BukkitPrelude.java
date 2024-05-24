@@ -1,12 +1,14 @@
 package prelude;
 
+import com.google.common.base.Preconditions;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import prelude.adapter.PlayerAdapter;
 import prelude.api.Actor;
 import prelude.api.Prelude;
 import prelude.api.ResentMod;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
+import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -52,6 +54,9 @@ public final class BukkitPrelude extends Prelude {
 
     @Override
     public <T extends ResentMod> Optional<T> getMod(Class<T> modClass) {
+        Preconditions.checkArgument(Modifier.isFinal(modClass.getModifiers()));
+        Preconditions.checkArgument(!Modifier.isAbstract(modClass.getModifiers()));
+
         return mods.stream()
                 .filter(mod -> modClass.isAssignableFrom(mod.getClass()))
                 .map(modClass::cast)

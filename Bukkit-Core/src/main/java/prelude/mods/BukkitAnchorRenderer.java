@@ -5,7 +5,7 @@ import prelude.api.Actor;
 import prelude.api.Prelude;
 import prelude.api.mods.AnchorRenderer;
 
-public class BukkitAnchorRenderer extends AnchorRenderer {
+public final class BukkitAnchorRenderer extends AnchorRenderer {
     public BukkitAnchorRenderer() {
         super();
         Prelude.getInstance().addMod(this);

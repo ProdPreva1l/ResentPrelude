@@ -39,7 +39,7 @@ public final class Listeners implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        Optional<TotemTweaks> mod = Prelude.getInstance().getMod(TotemTweaks.class);
+        Optional<MyTotemTweaks> mod = Prelude.getInstance().getMod(MyTotemTweaks.class);
         if (mod.isEmpty() || !mod.get().isAllowed()) {
             return;
         }
@@ -57,7 +57,7 @@ public final class Listeners implements Listener {
 - You must run `Prelude.getInstance().validateConnection(Actor actor)` sometime in the connection phase, preferably the on join event to avoid conflicts
 
 All methods that require a player use the `Actor` object
-you can obtain an Actor by adding [PlayeAdapter.java](/Bukkit-Adapter/src/main/java/info/preva1l/prelude/adapter/PlayerAdapter.java) to your project
+you can obtain an Actor by adding [PlayerAdapter.java](/Bukkit-Adapter/src/main/java/prelude/adapter/PlayerAdapter.java) to your project
 or more simply by using `Prelude.getInstance().getActor(playersUUID)`
 
 ## Mod Details
@@ -84,7 +84,7 @@ You only have to construct an item stack with the material type and enchant it w
 It was requested that I make this fire only if the totem was in the secondary hand but there is no way of checking this, if you find a way feel free to make a PR.
 
 - Your implementation should ignore cancelled to avoid weirdness
-- Your implementation should have Highest priority so it runs last to avoid conflicts
+- Your implementation should have Monitor priority, so it runs last to avoid conflicts
 - You should only fire this method on the `EntityResurrectEvent` but there is rare cases where you may need to fire it elsewhere (Example: custom dungeons)
 
 ### ServerTps (Mod ID: `STps`)
@@ -93,3 +93,8 @@ It was requested that I make this fire only if the totem was in the secondary ha
 
 ### FreeLook (Mod ID: `FreeLook`)
 - This mod has no hooks, but the client must respect the `disable` packet
+
+### AnchorRenderer (Mod ID: `AnR`)
+- Your implementation should ignore cancelled to avoid weirdness
+- Your implementation should have the Monitor priority, so it runs last to avoid conflicts
+- You should only fire this method on the `BlockPlaceEvent` and the `PlayerInteractEvent` but there is rare cases where you may need to fire it elsewhere

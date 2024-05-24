@@ -29,8 +29,9 @@ public abstract class Prelude {
      * Get a ResentMod instance.
      * @param modClass the mod to get
      * @return the instance of the mod
+     * @throws IllegalArgumentException if the modClass is not final or is abstract
      */
-    public abstract <T extends ResentMod> Optional<T> getMod(Class<T> modClass);
+    public abstract <T extends ResentMod> Optional<T> getMod(Class<T> modClass) throws IllegalArgumentException;
 
     /**
      * Register a ResentMod hook.

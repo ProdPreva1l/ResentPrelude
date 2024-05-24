@@ -42,3 +42,8 @@ It was requested that I make this fire only if the totem was in the secondary ha
 
 ### FreeLook (Mod ID: `FreeLook`)
 - This mod has no hooks, but you must respect the `disable` packet
+
+### AnchorRenderer (Mod ID: `AnR`)
+- The anchor renderer mod requires each packet to contain more detail so the packets are formatted with JSON instead of a raw string
+- This mod will send a packet whenever an anchor is updated, the packet is formatted as follows
+`{"x":"%x%","y":"%y%","z":"%z%","charge":"%charge%"}` where `%x%`, `%y%` and `%z%` are replaced with the location of the update and `%charge%` is replaced with an integer of 1-3 depending on how many charges the anchor has

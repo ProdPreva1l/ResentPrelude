@@ -9,7 +9,9 @@ dependencies {
     compileOnly project(":Bukkit-Adapter")
     compileOnly project(":API")
 
-    implementation project(":Bukkit-Adapter-Post-1-8-9")
+    implementation project(":Bukkit-Adapter-1-9")
+    implementation project(":Bukkit-Adapter-1-11")
+    implementation project(":Bukkit-Adapter-1-16-5")
 }
 
 shadowJar {

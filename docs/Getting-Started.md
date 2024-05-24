@@ -11,6 +11,8 @@ If you are a server owner, the usage for the Prelude API is pretty simple.
 ## Usage for Bukkit Plugin Developers
 If you are a plugin developer, the usage for the Prelude API is as follows
 
+You will need to follow the same instructions as [Usage for Server Owners](#usage-for-server-owners), where you disable the hooks or use the `purely-api` setting
+
 For example usage and documentation see here: [Server-Implementation](Server-Implementation.md)
 
 The following steps are to get the API into your project
@@ -37,7 +39,7 @@ compileOnly(files("libs/Prelude-API-<latest-version>.jar"))
 In your `maven.pom` file add the following (Replace `{latest-version}` with the version at the top of the page)
 ```xml
 <dependency>
-    <groupId>info.preva1l</groupId>
+    <groupId>prelude</groupId>
     <artifactId>Prelude-API</artifactId>
     <version>{latest-version}</version>
     <scope>system</scope>

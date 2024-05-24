@@ -1,10 +1,12 @@
 package prelude;
 
-import prelude.adapter.VersionAdapter;
-import prelude.mods.*;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
+import prelude.adapter.VersionAdapter;
+import prelude.adapter.impl.Adapter_1_11;
+import prelude.adapter.impl.Adapter_1_16_5;
+import prelude.adapter.impl.Adapter_1_9;
+import prelude.mods.*;
 
 import java.util.Optional;
 
@@ -14,17 +16,36 @@ public final class PreludePlugin extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        String version = Bukkit.getBukkitVersion().substring(0, 5);
-        getLogger().info(version);
-        if (version.startsWith("1.16")
-                || version.startsWith("1.17")
-                || version.startsWith("1.18")
-                || version.startsWith("1.19")
-                || version.startsWith("1.20")
-                || version.startsWith("1.21")) {
-            adapter = new Adapter_1_16_5_And_Later(this);
-        } else {
-            getLogger().warning("Server is running below 1.16.5 and does not support all features!");
+        VersionUtil.BukkitVersion version = VersionUtil.getServerBukkitVersion();
+        if (version.isUnknown()) {
+            getLogger().warning("Server is running an outdated version ({}) and does not fully support all features."
+                    .replace("{}", version.toString()));
+        }
+
+        else if (version.equals(VersionUtil.v1_8_8_R01)) {
+            getLogger().warning("Server is running an outdated version ({}) and does not fully support all features."
+                    .replace("{}", version.toString()));
+        }
+
+        else if (version.isHigherThanOrEqualTo(VersionUtil.v1_9_R01) && version.isLowerThan(VersionUtil.v1_11_R01)) {
+            adapter = new Adapter_1_9(this);
+            getLogger().warning("Server is running an outdated version ({}) and does not fully support all features."
+                    .replace("{}", version.toString()));
+        }
+
+        else if (version.isHigherThanOrEqualTo(VersionUtil.v1_11_R01) && version.isLowerThan(VersionUtil.v1_16_5_R01)) {
+            adapter = new Adapter_1_11(this);
+            getLogger().warning("Server is running an outdated version ({}) and does not fully support all features."
+                    .replace("{}", version.toString()));
+        }
+
+        else if (version.isHigherThanOrEqualTo(VersionUtil.v1_16_5_R01)) {
+            adapter = new Adapter_1_16_5(this);
+        }
+
+        else {
+            getLogger().warning("Server is running an outdated version ({}) and does not fully support all features."
+                    .replace("{}", version.toString()));
         }
     }
 

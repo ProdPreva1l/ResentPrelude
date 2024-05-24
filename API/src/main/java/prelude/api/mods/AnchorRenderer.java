@@ -15,9 +15,9 @@ public abstract class AnchorRenderer extends ResentMod {
         sendInteractedAnchorPacket(actor, x, y, z, 0);
     }
 
-    /**+
+    /**
      * @param charge 1 to 3, describing the amount of glowstone in the anchor
-     * */
+     */
     public void sendInteractedAnchorPacket(Actor actor, int x, int y, int z, int charge) {
         actor.sendPacket(this.getChannel(),
                 Arrays.toString(this.getData("update"))

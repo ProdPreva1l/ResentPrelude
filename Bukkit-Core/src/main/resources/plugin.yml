@@ -1,4 +1,8 @@
 name: PreludeAPI
 version: '${version}'
-main: info.preva1l.prelude.PreludePlugin
+main: prelude.PreludePlugin
 api-version: '1.8'
+authors:
+  - Preva1l
+  - Cire3
+description: The API for Resent Client
