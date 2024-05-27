@@ -3,11 +3,11 @@ package prelude.api;
 import java.util.UUID;
 
 @SuppressWarnings("unused")
-public abstract class Actor {
+public abstract class PreludePlayer {
     private final String username;
     private final UUID uuid;
 
-    public Actor(String username, UUID uuid) {
+    public PreludePlayer(String username, UUID uuid) {
         this.username = username;
         this.uuid = uuid;
     }
@@ -20,5 +20,5 @@ public abstract class Actor {
         return uuid;
     }
 
-    public abstract void sendPacket(String channel, byte[] data);
+    public abstract void sendPacket(String modid, String msg);
 }

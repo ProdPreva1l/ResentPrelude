@@ -4,7 +4,7 @@ import prelude.api.ResentMod;
 
 public abstract class FreeLook extends ResentMod {
     @Override
-    public final String getChannel() {
-        return "PRE|Freelook";
+    public final String getModId() {
+        return "free_look";
     }
 }

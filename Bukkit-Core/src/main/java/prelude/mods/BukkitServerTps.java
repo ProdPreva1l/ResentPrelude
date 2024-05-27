@@ -1,7 +1,7 @@
 package prelude.mods;
 
 import prelude.PreludePlugin;
-import prelude.api.Actor;
+import prelude.api.PreludePlayer;
 import prelude.api.Prelude;
 import prelude.api.mods.ServerTps;
 
@@ -14,9 +14,9 @@ public final class BukkitServerTps extends ServerTps {
     }
 
     @Override
-    public void sendServerTpsUpdate(Actor actor, double currentTps) {
-        super.sendServerTpsUpdate(actor, currentTps);
-        PreludePlugin.getInstance().debug("Dispatched ServerTpsUpdate to " + actor);
+    public void sendServerTpsUpdate(PreludePlayer preludePlayer, double currentTps) {
+        super.sendServerTpsUpdate(preludePlayer, currentTps);
+        PreludePlugin.getInstance().debug("Dispatched ServerTpsUpdate to " + preludePlayer);
     }
 
     @Override

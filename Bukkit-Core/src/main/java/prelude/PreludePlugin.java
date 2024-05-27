@@ -2,10 +2,12 @@ package prelude;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.omg.CORBA.Any;
 import prelude.adapter.VersionAdapter;
 import prelude.adapter.impl.Adapter_1_11;
 import prelude.adapter.impl.Adapter_1_16_5;
 import prelude.adapter.impl.Adapter_1_9;
+import prelude.api.Prelude;
 import prelude.mods.*;
 
 import java.util.Optional;
@@ -67,9 +69,11 @@ public final class PreludePlugin extends JavaPlugin {
         new BukkitAnchorRenderer();
 
         getServer().getPluginManager().registerEvents(new BaseImplementation(this), this);
+
+        getServer().getMessenger().registerOutgoingPluginChannel(this, Prelude.CHANNEL);
         getServer().getMessenger().registerIncomingPluginChannel(
                 this,
-                "PRE|Notif",
+                Prelude.CHANNEL,
                 new BaseImplementation.ResentClientMessageListener(this));
 
         getLogger().info("Fully Started Resent Client's Prelude API");

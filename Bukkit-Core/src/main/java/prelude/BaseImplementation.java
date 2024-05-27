@@ -120,17 +120,6 @@ public final class BaseImplementation implements Listener {
             PreludePlugin.getInstance().debug("Channel: {}".replace("{}", channel));
             PreludePlugin.getInstance().debug("Player: {}".replace("{}", player.getName()));
             PreludePlugin.getInstance().debug("Message: {}".replace("{}", Arrays.toString(message)));
-
-            if (!channel.startsWith("PRE|"))
-                return;
-
-            switch (channel) {
-                case "PRE|Notif": {
-                    if ("onresent".equals(Arrays.toString(message)))
-                        Prelude.getInstance().validateConnection(BukkitPlayerAdapter.adaptPlayer(plugin, player));
-                    break;
-                }
-            }
         }
     }
 }

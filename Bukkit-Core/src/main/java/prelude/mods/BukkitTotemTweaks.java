@@ -1,7 +1,7 @@
 package prelude.mods;
 
 import prelude.PreludePlugin;
-import prelude.api.Actor;
+import prelude.api.PreludePlayer;
 import prelude.api.Prelude;
 import prelude.api.mods.TotemTweaks;
 
@@ -25,8 +25,8 @@ public final class BukkitTotemTweaks extends TotemTweaks {
     }
 
     @Override
-    public void sendTotemPoppedEvent(Actor actor) {
-        super.sendTotemPoppedEvent(actor);
-        PreludePlugin.getInstance().debug("Dispatched TotemPoppedEvent to " + actor);
+    public void sendTotemPoppedEvent(PreludePlayer preludePlayer) {
+        super.sendTotemPoppedEvent(preludePlayer);
+        PreludePlugin.getInstance().debug("Dispatched TotemPoppedEvent to " + preludePlayer);
     }
 }
