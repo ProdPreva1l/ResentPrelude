@@ -76,7 +76,7 @@ public final class Adapter_1_11 implements VersionAdapter {
             if (event.getEntity() instanceof Player) {
                 Player player = (Player) event.getEntity();
                 Optional<TotemTweaks> mod = Prelude.getInstance().getMod(TotemTweaks.class);
-                if (mod.isEmpty() || !mod.get().isAllowed() || !mod.get().isOfficiallyHooked()) {
+                if (!mod.isPresent() || !mod.get().isAllowed() || !mod.get().isOfficiallyHooked()) {
                     return;
                 }
                 mod.get().sendTotemPoppedEvent(BukkitPlayerAdapter.adaptPlayer(plugin, player));

@@ -80,7 +80,7 @@ public final class Adapter_1_16_5 implements VersionAdapter {
             if (event.getEntity() instanceof Player) {
                 Player player = (Player) event.getEntity();
                 Optional<TotemTweaks> mod = Prelude.getInstance().getMod(TotemTweaks.class);
-                if (mod.isEmpty() || !mod.get().isAllowed() || !mod.get().isOfficiallyHooked()) {
+                if (!mod.isPresent() || !mod.get().isAllowed() || !mod.get().isOfficiallyHooked()) {
                     return;
                 }
                 mod.get().sendTotemPoppedEvent(BukkitPlayerAdapter.adaptPlayer(plugin, player));
@@ -97,7 +97,7 @@ public final class Adapter_1_16_5 implements VersionAdapter {
 
             Optional<AnchorRenderer> mod = Prelude.getInstance().getMod(AnchorRenderer.class);
 
-            if (mod.isEmpty() || !mod.get().isAllowed() || !mod.get().isOfficiallyHooked()) {
+            if (!mod.isPresent() || !mod.get().isAllowed() || !mod.get().isOfficiallyHooked()) {
                 return;
             }
 
@@ -125,7 +125,7 @@ public final class Adapter_1_16_5 implements VersionAdapter {
 
             Optional<AnchorRenderer> mod = Prelude.getInstance().getMod(AnchorRenderer.class);
 
-            if (mod.isEmpty() || !mod.get().isAllowed() || !mod.get().isOfficiallyHooked()) {
+            if (!mod.isPresent() || !mod.get().isAllowed() || !mod.get().isOfficiallyHooked()) {
                 return;
             }
 
