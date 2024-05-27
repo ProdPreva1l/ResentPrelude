@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityResurrectEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import prelude.adapter.PlayerAdapter;
+import prelude.adapter.BukkitPlayerAdapter;
 import prelude.adapter.VersionAdapter;
 import prelude.api.Prelude;
 import prelude.api.mods.AnchorRenderer;
@@ -60,10 +60,10 @@ public final class Adapter_1_11 implements VersionAdapter {
                 }
                 offhandItemMap.replace(player, currentOffhand);
                 if (currentOffhand.getType() == Material.AIR) {
-                    offhandMod.sendOffhandUnEquipEvent(PlayerAdapter.adaptPlayer(plugin, player),
+                    offhandMod.sendOffhandUnEquipEvent(BukkitPlayerAdapter.adaptPlayer(plugin, player),
                             Material.AIR.name(), false);
                 } else {
-                    offhandMod.sendOffhandEquipEvent(PlayerAdapter.adaptPlayer(plugin, player),
+                    offhandMod.sendOffhandEquipEvent(BukkitPlayerAdapter.adaptPlayer(plugin, player),
                             currentOffhand.getType().name(), !currentOffhand.getEnchantments().isEmpty());
                 }
             }
@@ -79,7 +79,7 @@ public final class Adapter_1_11 implements VersionAdapter {
                 if (mod.isEmpty() || !mod.get().isAllowed() || !mod.get().isOfficiallyHooked()) {
                     return;
                 }
-                mod.get().sendTotemPoppedEvent(PlayerAdapter.adaptPlayer(plugin, player));
+                mod.get().sendTotemPoppedEvent(BukkitPlayerAdapter.adaptPlayer(plugin, player));
             }
         }
     }

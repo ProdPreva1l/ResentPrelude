@@ -3,7 +3,8 @@ package prelude;
 import com.google.common.base.Preconditions;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import prelude.adapter.PlayerAdapter;
+import org.bukkit.potion.PotionEffect;
+import prelude.adapter.BukkitPlayerAdapter;
 import prelude.api.Actor;
 import prelude.api.Prelude;
 import prelude.api.ResentMod;
@@ -28,11 +29,16 @@ public final class BukkitPrelude extends Prelude {
         if (player == null) {
             throw new IllegalStateException("An actor must be online! Attempted UUID: " + uuid.toString());
         }
-        return PlayerAdapter.adaptPlayer(PreludePlugin.getInstance(), player);
+        return BukkitPlayerAdapter.adaptPlayer(PreludePlugin.getInstance(), player);
     }
 
     @Override
     public void validateConnection(Actor actor) {
+        Player player = Bukkit.getPlayer(actor.getUuid());
+
+        if (player == null)
+            player = Bukkit.getPlayer(actor.getUsername());
+
         PreludePlugin.getInstance().debug("Validating mods for " + actor);
         for (ResentMod mod : mods) {
             if (!mod.isEnabled()) {
@@ -50,6 +56,15 @@ public final class BukkitPrelude extends Prelude {
                 mod.initMod(actor);
             }
         }
+
+        // TODO
+//        if (PreludePlugin.getInstance().getConfig().getBoolean("patches.potion-effect-kick-patch.enabled", true)) {
+//            if (player != null) {
+//                for (PotionEffect effect : player.getActivePotionEffects()) {
+//
+//                }
+//            }
+//        }
     }
 
     @Override

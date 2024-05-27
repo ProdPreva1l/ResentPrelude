@@ -13,7 +13,7 @@ import org.bukkit.event.entity.EntityResurrectEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import prelude.adapter.PlayerAdapter;
+import prelude.adapter.BukkitPlayerAdapter;
 import prelude.adapter.VersionAdapter;
 import prelude.api.Prelude;
 import prelude.api.mods.AnchorRenderer;
@@ -64,10 +64,10 @@ public final class Adapter_1_16_5 implements VersionAdapter {
                 }
                 offhandItemMap.replace(player, currentOffhand);
                 if (currentOffhand.getType().isAir()) {
-                    offhandMod.sendOffhandUnEquipEvent(PlayerAdapter.adaptPlayer(plugin, player),
+                    offhandMod.sendOffhandUnEquipEvent(BukkitPlayerAdapter.adaptPlayer(plugin, player),
                             Material.AIR.name(), false);
                 } else {
-                    offhandMod.sendOffhandEquipEvent(PlayerAdapter.adaptPlayer(plugin, player),
+                    offhandMod.sendOffhandEquipEvent(BukkitPlayerAdapter.adaptPlayer(plugin, player),
                             currentOffhand.getType().name(), !currentOffhand.getEnchantments().isEmpty());
                 }
             }
@@ -83,7 +83,7 @@ public final class Adapter_1_16_5 implements VersionAdapter {
                 if (mod.isEmpty() || !mod.get().isAllowed() || !mod.get().isOfficiallyHooked()) {
                     return;
                 }
-                mod.get().sendTotemPoppedEvent(PlayerAdapter.adaptPlayer(plugin, player));
+                mod.get().sendTotemPoppedEvent(BukkitPlayerAdapter.adaptPlayer(plugin, player));
             }
         }
     }
@@ -105,7 +105,7 @@ public final class Adapter_1_16_5 implements VersionAdapter {
             int y = event.getBlockPlaced().getY();
             int z = event.getBlockPlaced().getZ();
 
-            mod.get().sendPlacedAnchorPacket(PlayerAdapter.adaptPlayer(plugin, event.getPlayer()), x, y, z);
+            mod.get().sendPlacedAnchorPacket(BukkitPlayerAdapter.adaptPlayer(plugin, event.getPlayer()), x, y, z);
         }
 
         @EventHandler(priority = EventPriority.MONITOR)
@@ -136,11 +136,11 @@ public final class Adapter_1_16_5 implements VersionAdapter {
             int charges = ((RespawnAnchor) event.getClickedBlock().getBlockData()).getCharges();
 
             if (charges == 3) {
-                mod.get().sendBlownUpAnchorPacket(PlayerAdapter.adaptPlayer(plugin, event.getPlayer()), x, y, z);
+                mod.get().sendBlownUpAnchorPacket(BukkitPlayerAdapter.adaptPlayer(plugin, event.getPlayer()), x, y, z);
                 return;
             }
 
-            mod.get().sendInteractedAnchorPacket(PlayerAdapter.adaptPlayer(plugin, event.getPlayer()), x, y, z, charges + 1);
+            mod.get().sendInteractedAnchorPacket(BukkitPlayerAdapter.adaptPlayer(plugin, event.getPlayer()), x, y, z, charges + 1);
         }
     }
 

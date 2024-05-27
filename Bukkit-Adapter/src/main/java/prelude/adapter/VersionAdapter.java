@@ -51,4 +51,11 @@ public interface VersionAdapter {
     default boolean hasOffHandSupport() {
         return false;
     }
+
+    /**
+     * Sends messages in a channel with all the potion effect ids to prevent the bug
+     */
+    default void sendPotionEffects() {
+
+    }
 }

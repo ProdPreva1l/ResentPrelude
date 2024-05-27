@@ -4,8 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import prelude.adapter.PlayerAdapter;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.messaging.PluginMessageListener;
+import prelude.adapter.BukkitPlayerAdapter;
 import prelude.adapter.VersionAdapter;
 import prelude.api.Prelude;
 import prelude.mods.BukkitAnchorRenderer;
@@ -14,6 +15,7 @@ import prelude.mods.BukkitServerTps;
 import prelude.mods.BukkitTotemTweaks;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -31,7 +33,7 @@ public final class BaseImplementation implements Listener {
                 return;
             }
             for (Player player : Bukkit.getOnlinePlayers()) {
-                tpsMod.get().sendServerTpsUpdate(PlayerAdapter.adaptPlayer(plugin, player), getTPS()[0]);
+                tpsMod.get().sendServerTpsUpdate(BukkitPlayerAdapter.adaptPlayer(plugin, player), getTPS()[0]);
             }
         };
 
@@ -81,11 +83,10 @@ public final class BaseImplementation implements Listener {
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    public void onLeave(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        Prelude.getInstance().validateConnection(PlayerAdapter.adaptPlayer(plugin, player));
+        BukkitPlayerAdapter.remove(player);
     }
-
 
     private double[] getTPS() {
         try {
@@ -104,5 +105,32 @@ public final class BaseImplementation implements Listener {
         Field consoleField = craftServer.getClass().getDeclaredField("console");
         consoleField.setAccessible(true);
         return consoleField.get(craftServer);
+    }
+
+    public static class ResentClientMessageListener implements PluginMessageListener {
+        private PreludePlugin plugin;
+
+        public ResentClientMessageListener(PreludePlugin plugin) {
+            this.plugin = plugin;
+        }
+
+        @Override
+        public void onPluginMessageReceived(String channel, Player player, byte[] message) {
+            // dump
+            PreludePlugin.getInstance().debug("Channel: {}".replace("{}", channel));
+            PreludePlugin.getInstance().debug("Player: {}".replace("{}", player.getName()));
+            PreludePlugin.getInstance().debug("Message: {}".replace("{}", Arrays.toString(message)));
+
+            if (!channel.startsWith("PRE|"))
+                return;
+
+            switch (channel) {
+                case "PRE|Notif": {
+                    if ("onresent".equals(Arrays.toString(message)))
+                        Prelude.getInstance().validateConnection(BukkitPlayerAdapter.adaptPlayer(plugin, player));
+                    break;
+                }
+            }
+        }
     }
 }

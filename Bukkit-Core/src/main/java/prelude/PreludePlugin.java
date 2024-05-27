@@ -56,7 +56,7 @@ public final class PreludePlugin extends JavaPlugin {
         new BukkitPrelude();
 
         if (getConfig().getBoolean("purely-api")) {
-            getLogger().info("Started Resent Client's Prelude API");
+            getLogger().info("Partially Started Resent Client's Prelude API");
             return;
         }
 
@@ -67,8 +67,12 @@ public final class PreludePlugin extends JavaPlugin {
         new BukkitAnchorRenderer();
 
         getServer().getPluginManager().registerEvents(new BaseImplementation(this), this);
+        getServer().getMessenger().registerIncomingPluginChannel(
+                this,
+                "PRE|Notif",
+                new BaseImplementation.ResentClientMessageListener(this));
 
-        getLogger().info("Started Resent Client's Prelude API");
+        getLogger().info("Fully Started Resent Client's Prelude API");
     }
 
     @Override

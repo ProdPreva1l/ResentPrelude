@@ -4,6 +4,11 @@ debug: false
 # Meaning that the hook AND allowed config from below will not do anything
 purely-api: false
 
+# patches
+patches:
+  potion-effect-kick-patch:
+    enabled: true
+
 # Mod Settings
 mods:
   off-hand:
