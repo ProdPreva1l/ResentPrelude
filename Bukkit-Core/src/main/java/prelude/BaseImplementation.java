@@ -29,7 +29,7 @@ public final class BaseImplementation implements Listener {
 
         Runnable tpsRunnable = () -> {
             Optional<BukkitServerTps> tpsMod = Prelude.getInstance().getMod(BukkitServerTps.class);
-            if (tpsMod.isEmpty() || !tpsMod.get().isAllowed() || !tpsMod.get().isOfficiallyHooked()) {
+            if (!tpsMod.isPresent() || !tpsMod.get().isAllowed() || !tpsMod.get().isOfficiallyHooked()) {
                 return;
             }
             for (Player player : Bukkit.getOnlinePlayers()) {

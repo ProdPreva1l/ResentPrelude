@@ -40,7 +40,7 @@ public final class Listeners implements Listener {
         }
         Player player = (Player) event.getEntity();
         Optional<MyTotemTweaks> mod = Prelude.getInstance().getMod(MyTotemTweaks.class);
-        if (mod.isEmpty() || !mod.get().isAllowed()) {
+        if (!mod.isPresent() || !mod.get().isAllowed()) {
             return;
         }
         mod.get().sendTotemPoppedEvent(Prelude.getInstance().getActor(player.getUniqueId()));
