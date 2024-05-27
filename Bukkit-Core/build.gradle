@@ -12,6 +12,14 @@ dependencies {
     implementation project(":Bukkit-Adapter-1-9")
     implementation project(":Bukkit-Adapter-1-11")
     implementation project(":Bukkit-Adapter-1-16-5")
+
+    testImplementation 'com.github.seeseemelk:MockBukkit-v1.16:1.0.0'
+    testImplementation project(":Bukkit-Adapter-1-9")
+    testImplementation project(":Bukkit-Adapter-1-11")
+    testImplementation project(":Bukkit-Adapter-1-16-5")
+    testCompileOnly project(":Bukkit-Adapter")
+    testCompileOnly project(":API")
+
 }
 
 shadowJar {

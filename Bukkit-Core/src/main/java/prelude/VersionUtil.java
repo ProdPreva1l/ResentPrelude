@@ -56,6 +56,7 @@ public final class VersionUtil {
         private final int patch;
         private final double revision;
         private final boolean unknown;
+        private final boolean testVersion;
 
         private BukkitVersion(final int major, final int minor, final int patch, final double revision, final int preRelease, final int releaseCandidate) {
             this.major = major;
@@ -65,6 +66,7 @@ public final class VersionUtil {
             this.preRelease = preRelease;
             this.releaseCandidate = releaseCandidate;
             this.unknown = false;
+            this.testVersion = revision == 0.0;
         }
 
         private BukkitVersion() {
@@ -75,6 +77,7 @@ public final class VersionUtil {
             this.preRelease = 0;
             this.releaseCandidate = 0;
             this.unknown = true;
+            this.testVersion = false;
         }
 
         public static BukkitVersion unknown() {
@@ -146,6 +149,10 @@ public final class VersionUtil {
 
         public boolean isUnknown() {
             return unknown;
+        }
+
+        public boolean isTestVersion() {
+            return testVersion;
         }
 
         @Override

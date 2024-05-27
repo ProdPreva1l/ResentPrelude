@@ -2,6 +2,7 @@ package prelude.api;
 
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @SuppressWarnings("unused")
@@ -41,6 +42,13 @@ public abstract class Prelude {
      * @apiNote Internal use only
      */
     public abstract void addMod(ResentMod mod);
+
+    /**
+     * Get a set of all registered mods.
+     * @return immutable set of all registered mods
+     * @since 2.0.1
+     */
+    public abstract Set<ResentMod> getMods();
 
     /**
      * Get the API instance.
