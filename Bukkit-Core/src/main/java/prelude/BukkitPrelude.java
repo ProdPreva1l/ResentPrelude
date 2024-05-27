@@ -1,6 +1,7 @@
 package prelude;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -81,5 +82,10 @@ public final class BukkitPrelude extends Prelude {
     @Override
     public void addMod(ResentMod mod) {
         mods.add(mod);
+    }
+
+    @Override
+    public Set<ResentMod> getMods() {
+        return ImmutableSet.copyOf(mods);
     }
 }
