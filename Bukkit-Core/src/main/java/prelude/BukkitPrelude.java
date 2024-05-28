@@ -4,8 +4,8 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import prelude.adapter.PlayerAdapter;
-import prelude.api.Actor;
+import prelude.adapter.BukkitPlayerAdapter;
+import prelude.api.PreludePlayer;
 import prelude.api.Prelude;
 import prelude.api.ResentMod;
 
@@ -24,17 +24,22 @@ public final class BukkitPrelude extends Prelude {
     }
 
     @Override
-    public Actor getActor(UUID uuid) throws IllegalStateException {
+    public PreludePlayer getActor(UUID uuid) throws IllegalStateException {
         Player player = Bukkit.getPlayer(uuid);
         if (player == null) {
             throw new IllegalStateException("An actor must be online! Attempted UUID: " + uuid.toString());
         }
-        return PlayerAdapter.adaptPlayer(PreludePlugin.getInstance(), player);
+        return BukkitPlayerAdapter.adaptPlayer(PreludePlugin.getInstance(), player);
     }
 
     @Override
-    public void validateConnection(Actor actor) {
-        PreludePlugin.getInstance().debug("Validating mods for " + actor);
+    public void validateConnection(PreludePlayer preludePlayer) {
+        Player player = Bukkit.getPlayer(preludePlayer.getUuid());
+
+        if (player == null)
+            player = Bukkit.getPlayer(preludePlayer.getUsername());
+
+        PreludePlugin.getInstance().debug("Validating mods for " + preludePlayer);
         for (ResentMod mod : mods) {
             if (!mod.isEnabled()) {
                 PreludePlugin.getInstance().debug(String.format("Mod %s did not get enabled",
@@ -42,15 +47,24 @@ public final class BukkitPrelude extends Prelude {
                 continue;
             }
             if (!mod.isAllowed()) {
-                mod.disableMod(actor);
+                mod.disableMod(preludePlayer);
                 PreludePlugin.getInstance().debug(String.format("Mod %s is not allowed and was disabled for %s",
-                        mod.getClass().getSimpleName(), actor.getUsername()));
+                        mod.getClass().getSimpleName(), preludePlayer.getUsername()));
                 continue;
             }
             if (mod.isOfficiallyHooked()) {
-                mod.initMod(actor);
+                mod.initMod(preludePlayer);
             }
         }
+
+        // TODO
+//        if (PreludePlugin.getInstance().getConfig().getBoolean("patches.potion-effect-kick-patch.enabled", true)) {
+//            if (player != null) {
+//                for (PotionEffect effect : player.getActivePotionEffects()) {
+//
+//                }
+//            }
+//        }
     }
 
     @Override

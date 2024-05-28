@@ -7,6 +7,8 @@ import java.util.UUID;
 
 @SuppressWarnings("unused")
 public abstract class Prelude {
+    public static final String CHANNEL = "resent:prelude";
+
     /**
      * The API instance.
      */
@@ -18,13 +20,13 @@ public abstract class Prelude {
      * @return an Actor object
      * @throws IllegalStateException if the player is not online
      */
-    public abstract Actor getActor(UUID uuid) throws IllegalStateException;
+    public abstract PreludePlayer getActor(UUID uuid) throws IllegalStateException;
 
     /**
      * Run checks on all mods to either send the disable or the init packet to the client
-     * @param actor player to validate
+     * @param preludePlayer player to validate
      */
-    public abstract void validateConnection(Actor actor);
+    public abstract void validateConnection(PreludePlayer preludePlayer);
 
     /**
      * Get a ResentMod instance.

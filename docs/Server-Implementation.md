@@ -40,7 +40,7 @@ public final class Listeners implements Listener {
         }
         Player player = (Player) event.getEntity();
         Optional<MyTotemTweaks> mod = Prelude.getInstance().getMod(MyTotemTweaks.class);
-        if (mod.isEmpty() || !mod.get().isAllowed()) {
+        if (!mod.isPresent() || !mod.get().isAllowed()) {
             return;
         }
         mod.get().sendTotemPoppedEvent(Prelude.getInstance().getActor(player.getUniqueId()));
@@ -54,7 +54,7 @@ public final class Listeners implements Listener {
 - All packets are sent over the PluginMessage channels
 - All channels use the `PRE` namespace (Example: `PRE|TTOT`)
 - Your plugin must depend on `PreludeAPI`
-- You must run `Prelude.getInstance().validateConnection(Actor actor)` sometime in the connection phase, preferably the on join event to avoid conflicts
+- You must run `Prelude.getInstance().validateConnection(Actor preludePlayer)` sometime in the connection phase, preferably the on join event to avoid conflicts
 
 All methods that require a player use the `Actor` object
 you can obtain an Actor by adding [PlayerAdapter.java](/Bukkit-Adapter/src/main/java/prelude/adapter/PlayerAdapter.java) to your project

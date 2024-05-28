@@ -1,6 +1,6 @@
 package prelude.api.mods;
 
-import prelude.api.Actor;
+import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
 
 import java.util.Arrays;
@@ -9,26 +9,26 @@ public abstract class OffHand extends ResentMod {
 
     protected OffHand() {
         super();
-        dataRegistry.put("equipped", "{\"action\":\"equip_item\",\"item_id\":\"%item_id%\",\"enchanted\":%enchanted%}".getBytes());
-        dataRegistry.put("unequipped", "{\"action\":\"un-equip_item\",\"item_id\":\"%item_id%\",\"enchanted\":%enchanted%}".getBytes());
+        dataRegistry.put("equipped", "{\"action\":\"equip_item\",\"item_id\":\"%item_id%\",\"enchanted\":%enchanted%}");
+        dataRegistry.put("unequipped", "{\"action\":\"un-equip_item\",\"item_id\":\"%item_id%\",\"enchanted\":%enchanted%}");
     }
 
-    public void sendOffhandEquipEvent(Actor actor, String itemId, boolean enchanted) {
-        actor.sendPacket(this.getChannel(),
-                Arrays.toString(this.getData("equipped"))
+    public void sendOffhandEquipEvent(PreludePlayer preludePlayer, String itemId, boolean enchanted) {
+        preludePlayer.sendPacket(this.getModId(),
+                this.getData("equipped")
                         .replace("%item_id%", itemId)
-                        .replace("%enchanted%", enchanted + "").getBytes());
+                        .replace("%enchanted%", enchanted + ""));
     }
 
-    public void sendOffhandUnEquipEvent(Actor actor, String itemId, boolean enchanted) {
-        actor.sendPacket(this.getChannel(),
-                Arrays.toString(this.getData("unequipped"))
+    public void sendOffhandUnEquipEvent(PreludePlayer preludePlayer, String itemId, boolean enchanted) {
+        preludePlayer.sendPacket(this.getModId(),
+                this.getData("unequipped")
                         .replace("%item_id%", itemId)
-                        .replace("%enchanted%", enchanted + "").getBytes());
+                        .replace("%enchanted%", enchanted + ""));
     }
 
     @Override
-    public final String getChannel() {
-        return "PRE|OffHand";
+    public final String getModId() {
+        return "off_hand";
     }
 }

@@ -29,6 +29,6 @@ public class PreludeBukkitTests {
     @Test
     @DisplayName("Test Adapter")
     public void testVersionAdapter() {
-        Assertions.assertFalse(plugin.getAdapter().isEmpty());
+        Assertions.assertTrue(plugin.getAdapter().isPresent());
     }
 }

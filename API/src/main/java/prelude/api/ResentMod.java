@@ -6,23 +6,23 @@ import java.util.Map;
 public abstract class ResentMod {
     protected boolean enabled = false;
 
-    protected Map<String, byte[]> dataRegistry = new HashMap<>();
+    protected Map<String, String> dataRegistry = new HashMap<>();
 
     protected ResentMod() {
-        dataRegistry.put("empty", new byte[0]);
-        dataRegistry.put("init", "init".getBytes());
-        dataRegistry.put("disable", "disable".getBytes());
+        dataRegistry.put("empty", new String(new byte[0]));
+        dataRegistry.put("init", "init");
+        dataRegistry.put("disable", "disable");
     }
 
-    public void initMod(Actor actor) {
-        actor.sendPacket(this.getChannel(), this.getData("init"));
+    public void initMod(PreludePlayer preludePlayer) {
+        preludePlayer.sendPacket(this.getModId(), this.getData("init"));
     }
 
-    public void disableMod(Actor actor) {
-        actor.sendPacket(this.getChannel(), this.getData("disable"));
+    public void disableMod(PreludePlayer preludePlayer) {
+        preludePlayer.sendPacket(this.getModId(), this.getData("disable"));
     }
 
-    public abstract String getChannel();
+    public abstract String getModId();
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public abstract boolean isAllowed();
@@ -31,8 +31,8 @@ public abstract class ResentMod {
         return false;
     }
 
-    public byte[] getData(String key) {
-        byte[] data = dataRegistry.get(key);
+    public String getData(String key) {
+        String data = dataRegistry.get(key);
         if (data == null) {
             throw new IllegalArgumentException("Data key " + key + " not found in registry!");
         }

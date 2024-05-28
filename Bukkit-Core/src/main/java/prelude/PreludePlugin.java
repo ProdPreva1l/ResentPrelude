@@ -31,12 +31,6 @@ public final class PreludePlugin extends JavaPlugin {
                     .replace("{}", version.toString()));
         }
 
-        else if (version.isTestVersion()) {
-            adapter = new Adapter_1_16_5(this);
-            getLogger().warning("Server is running a testing version ({}) and should only be used for testing!"
-                    .replace("{}", version.toString()));
-        }
-
         else if (version.equals(VersionUtil.v1_8_8_R01)) {
             getLogger().warning("Server is running an outdated version ({}) and does not fully support all features."
                     .replace("{}", version.toString()));
@@ -71,7 +65,7 @@ public final class PreludePlugin extends JavaPlugin {
         new BukkitPrelude();
 
         if (getConfig().getBoolean("purely-api")) {
-            getLogger().info("Started Resent Client's Prelude API");
+            getLogger().info("Partially Started Resent Client's Prelude API");
             return;
         }
 
@@ -82,8 +76,12 @@ public final class PreludePlugin extends JavaPlugin {
         new BukkitAnchorRenderer();
 
         getServer().getPluginManager().registerEvents(new BaseImplementation(this), this);
+        getServer().getMessenger().registerIncomingPluginChannel(
+                this,
+                "PRE|Notif",
+                new BaseImplementation.ResentClientMessageListener(this));
 
-        getLogger().info("Started Resent Client's Prelude API");
+        getLogger().info("Fully Started Resent Client's Prelude API");
     }
 
     @Override

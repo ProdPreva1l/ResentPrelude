@@ -1,7 +1,7 @@
 package prelude.mods;
 
 import prelude.PreludePlugin;
-import prelude.api.Actor;
+import prelude.api.PreludePlayer;
 import prelude.api.Prelude;
 import prelude.api.mods.OffHand;
 
@@ -25,14 +25,14 @@ public final class BukkitOffHand extends OffHand {
     }
 
     @Override
-    public void sendOffhandEquipEvent(Actor actor, String itemId, boolean enchanted) {
-        super.sendOffhandEquipEvent(actor, itemId, enchanted);
-        PreludePlugin.getInstance().debug("Dispatched OffhandEquipEvent to " + actor);
+    public void sendOffhandEquipEvent(PreludePlayer preludePlayer, String itemId, boolean enchanted) {
+        super.sendOffhandEquipEvent(preludePlayer, itemId, enchanted);
+        PreludePlugin.getInstance().debug("Dispatched OffhandEquipEvent to " + preludePlayer);
     }
 
     @Override
-    public void sendOffhandUnEquipEvent(Actor actor, String itemId, boolean enchanted) {
-        super.sendOffhandUnEquipEvent(actor, itemId, enchanted);
-        PreludePlugin.getInstance().debug("Dispatched OffhandEquipEvent to " + actor);
+    public void sendOffhandUnEquipEvent(PreludePlayer preludePlayer, String itemId, boolean enchanted) {
+        super.sendOffhandUnEquipEvent(preludePlayer, itemId, enchanted);
+        PreludePlugin.getInstance().debug("Dispatched OffhandEquipEvent to " + preludePlayer);
     }
 }

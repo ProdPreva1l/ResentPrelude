@@ -1,7 +1,7 @@
 package prelude.mods;
 
 import prelude.PreludePlugin;
-import prelude.api.Actor;
+import prelude.api.PreludePlayer;
 import prelude.api.Prelude;
 import prelude.api.mods.AnchorRenderer;
 
@@ -24,14 +24,14 @@ public final class BukkitAnchorRenderer extends AnchorRenderer {
     }
 
     @Override
-    public void sendPlacedAnchorPacket(Actor actor, int x, int y, int z) {
-        super.sendPlacedAnchorPacket(actor, x, y, z);
-        PreludePlugin.getInstance().debug("Dispatched PlacedAnchorEvent to " + actor);
+    public void sendPlacedAnchorPacket(PreludePlayer preludePlayer, int x, int y, int z) {
+        super.sendPlacedAnchorPacket(preludePlayer, x, y, z);
+        PreludePlugin.getInstance().debug("Dispatched PlacedAnchorEvent to " + preludePlayer);
     }
 
     @Override
-    public void sendInteractedAnchorPacket(Actor actor, int x, int y, int z, int charge) {
-        super.sendInteractedAnchorPacket(actor, x, y, z, charge);
-        PreludePlugin.getInstance().debug("Dispatched InteractedAnchorEvent to " + actor);
+    public void sendInteractedAnchorPacket(PreludePlayer preludePlayer, int x, int y, int z, int charge) {
+        super.sendInteractedAnchorPacket(preludePlayer, x, y, z, charge);
+        PreludePlugin.getInstance().debug("Dispatched InteractedAnchorEvent to " + preludePlayer);
     }
 }
