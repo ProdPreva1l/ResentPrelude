@@ -77,7 +77,7 @@ public final class PreludePlugin extends JavaPlugin {
         new BukkitAnchorRenderer();
 
         getServer().getPluginManager().registerEvents(new BaseImplementation(this), this);
-
+      
         getServer().getMessenger().registerOutgoingPluginChannel(this, Prelude.CHANNEL);
         getServer().getMessenger().registerIncomingPluginChannel(
                 this,
