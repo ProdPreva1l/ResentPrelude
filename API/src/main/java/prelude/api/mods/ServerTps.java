@@ -13,8 +13,7 @@ public abstract class ServerTps extends ResentMod {
 
     public void sendServerTpsUpdate(PreludePlayer preludePlayer, double currentTps) {
         preludePlayer.sendPacket(this.getModId(),
-                this.getData("tps_count")
-                        .replace("%server-tps%", currentTps + ""));
+                this.getData("tps_count").replace("%server-tps%", currentTps + ""));
     }
 
     @Override
