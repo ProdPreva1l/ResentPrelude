@@ -120,6 +120,9 @@ public final class BaseImplementation implements Listener {
             PreludePlugin.getInstance().debug("Channel: {}".replace("{}", channel));
             PreludePlugin.getInstance().debug("Player: {}".replace("{}", player.getName()));
             PreludePlugin.getInstance().debug("Message: {}".replace("{}", Arrays.toString(message)));
+
+            if ("onresent".equals(Arrays.toString(message)))
+                BukkitPrelude.getInstance().validateConnection(BukkitPlayerAdapter.adaptPlayer(plugin, player));
         }
     }
 }
