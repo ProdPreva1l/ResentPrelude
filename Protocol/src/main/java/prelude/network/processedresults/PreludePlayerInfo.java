@@ -1,7 +1,7 @@
 package prelude.network.processedresults;
 
 import prelude.network.ProcessedResult;
-import prelude.network.packets.inbound.HandshakePacket;
+import prelude.network.packets.serverbound.HandshakePacket;
 
 import java.util.Arrays;
 import java.util.Objects;

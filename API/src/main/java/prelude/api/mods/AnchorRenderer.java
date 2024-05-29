@@ -3,8 +3,8 @@ package prelude.api.mods;
 import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
 import prelude.network.PacketManager;
-import prelude.network.packets.outbound.AnchorRendererPacket;
-import prelude.network.packets.outbound.AnchorRendererPacket.AnchorRendererPacketBuilder;
+import prelude.network.packets.clientbound.AnchorRendererPacket;
+import prelude.network.packets.clientbound.AnchorRendererPacket.AnchorRendererPacketBuilder;
 
 public abstract class AnchorRenderer extends ResentMod {
     protected AnchorRenderer() {

@@ -1,11 +1,11 @@
-package prelude.network.packets.outbound;
+package prelude.network.packets.clientbound;
 
-import prelude.network.OutboundPacket;
-import prelude.network.OutboundPacketBuilder;
+import prelude.network.ClientBoundPacket;
+import prelude.network.ClientBoundPacketBuilder;
 
 import java.util.Objects;
 
-public class OffhandPacket extends OutboundPacket {
+public class OffhandPacket extends ClientBoundPacket {
     public static final String OFFHAND_PACKET_MESSAGE_FORMAT =
             "{" +
                     "\"action\":\"equip_item\"," +
@@ -40,7 +40,7 @@ public class OffhandPacket extends OutboundPacket {
     }
 
     @Override
-    public OutboundPacketBuilder<? extends OutboundPacket> builder() {
+    public ClientBoundPacketBuilder<? extends ClientBoundPacket> builder() {
         return new OffhandPacketBuilder();
     }
 
@@ -53,7 +53,7 @@ public class OffhandPacket extends OutboundPacket {
                 && Objects.equals(receiver, that.receiver);
     }
 
-    public static class OffhandPacketBuilder extends OutboundPacketBuilder<OffhandPacket> {
+    public static class OffhandPacketBuilder extends ClientBoundPacketBuilder<OffhandPacket> {
         private String action;
         private String itemId;
         private boolean enchanted;

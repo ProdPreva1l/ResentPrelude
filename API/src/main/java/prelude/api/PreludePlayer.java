@@ -1,6 +1,6 @@
 package prelude.api;
 
-import prelude.network.OutboundPacket;
+import prelude.network.ClientBoundPacket;
 import prelude.network.processedresults.PreludePlayerInfo;
 
 import java.util.UUID;
@@ -36,5 +36,5 @@ public abstract class PreludePlayer {
      * @author cire3
      * @since 1.0.0
      */
-    public abstract void sendPacket(OutboundPacket packet);
+    public abstract void sendPacket(ClientBoundPacket packet);
 }

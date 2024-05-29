@@ -1,11 +1,11 @@
-package prelude.network.packets.outbound;
+package prelude.network.packets.clientbound;
 
-import prelude.network.OutboundPacket;
-import prelude.network.OutboundPacketBuilder;
+import prelude.network.ClientBoundPacket;
+import prelude.network.ClientBoundPacketBuilder;
 
 import java.util.Objects;
 
-public class TotemPoppedPacket extends OutboundPacket {
+public class TotemPoppedPacket extends ClientBoundPacket {
     public TotemPoppedPacket() {
         super(TotemPoppedPacket.class);
     }
@@ -34,7 +34,7 @@ public class TotemPoppedPacket extends OutboundPacket {
         return Objects.equals(receiver, that.receiver);
     }
 
-    public static class TotemPoppedPacketBuilder extends OutboundPacketBuilder<TotemPoppedPacket> {
+    public static class TotemPoppedPacketBuilder extends ClientBoundPacketBuilder<TotemPoppedPacket> {
         private TotemPoppedPacketBuilder() {}
 
         @Override

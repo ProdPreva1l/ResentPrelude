@@ -1,9 +1,9 @@
 package prelude.network;
 
-public abstract class OutboundPacketBuilder<E extends OutboundPacket> {
+public abstract class ClientBoundPacketBuilder<E extends ClientBoundPacket> {
     protected String receiver;
 
-    public OutboundPacketBuilder<E> receiver(String receiver) {
+    public ClientBoundPacketBuilder<E> receiver(String receiver) {
         this.receiver = receiver;
         return this;
     }

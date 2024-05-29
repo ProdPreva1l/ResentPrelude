@@ -1,11 +1,11 @@
-package prelude.network.packets.outbound;
+package prelude.network.packets.clientbound;
 
-import prelude.network.OutboundPacket;
-import prelude.network.OutboundPacketBuilder;
+import prelude.network.ClientBoundPacket;
+import prelude.network.ClientBoundPacketBuilder;
 
 import java.util.Objects;
 
-public class AnchorRendererPacket extends OutboundPacket {
+public class AnchorRendererPacket extends ClientBoundPacket {
     public static final String ANCHOR_RENDERER_PACKET_MESSAGE_FORMAT =
             "{" +
                     "\"x\":\"%x%\"," +
@@ -58,7 +58,7 @@ public class AnchorRendererPacket extends OutboundPacket {
         return x == that.x && y == that.y && z == that.z && charge == that.charge && Objects.equals(receiver, that.receiver);
     }
 
-    public static class AnchorRendererPacketBuilder extends OutboundPacketBuilder<AnchorRendererPacket> {
+    public static class AnchorRendererPacketBuilder extends ClientBoundPacketBuilder<AnchorRendererPacket> {
         private int x;
         private int y;
         private int z;

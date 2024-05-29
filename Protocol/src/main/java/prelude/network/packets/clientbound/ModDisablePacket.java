@@ -1,11 +1,11 @@
-package prelude.network.packets.outbound;
+package prelude.network.packets.clientbound;
 
-import prelude.network.OutboundPacket;
-import prelude.network.OutboundPacketBuilder;
+import prelude.network.ClientBoundPacket;
+import prelude.network.ClientBoundPacketBuilder;
 
 import java.util.Objects;
 
-public class ModDisablePacket extends OutboundPacket {
+public class ModDisablePacket extends ClientBoundPacket {
     public ModDisablePacket() {
         super(ModInitPacket.class);
     }
@@ -34,7 +34,7 @@ public class ModDisablePacket extends OutboundPacket {
         return Objects.equals(receiver, that.receiver);
     }
 
-    public static class ModDisablePacketBuilder extends OutboundPacketBuilder<ModDisablePacket> {
+    public static class ModDisablePacketBuilder extends ClientBoundPacketBuilder<ModDisablePacket> {
         private ModDisablePacketBuilder() {}
 
         @Override

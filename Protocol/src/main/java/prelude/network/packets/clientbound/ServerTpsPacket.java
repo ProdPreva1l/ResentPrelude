@@ -1,12 +1,12 @@
-package prelude.network.packets.outbound;
+package prelude.network.packets.clientbound;
 
-import prelude.network.OutboundPacket;
-import prelude.network.OutboundPacketBuilder;
+import prelude.network.ClientBoundPacket;
+import prelude.network.ClientBoundPacketBuilder;
 
 import java.util.Objects;
 
 
-public class ServerTpsPacket extends OutboundPacket {
+public class ServerTpsPacket extends ClientBoundPacket {
     private double tps;
 
     public ServerTpsPacket() {
@@ -37,7 +37,7 @@ public class ServerTpsPacket extends OutboundPacket {
         return tps == that.tps && Objects.equals(receiver, that.receiver);
     }
 
-    public static class ServerTpsPacketBuilder extends OutboundPacketBuilder<ServerTpsPacket> {
+    public static class ServerTpsPacketBuilder extends ClientBoundPacketBuilder<ServerTpsPacket> {
         private double tps;
 
         private ServerTpsPacketBuilder() {}

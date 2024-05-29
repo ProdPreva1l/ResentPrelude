@@ -1,9 +1,9 @@
-package prelude.network.packets.inbound;
+package prelude.network.packets.serverbound;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import prelude.network.InboundPacket;
+import prelude.network.ServerBoundPacket;
 import prelude.network.PacketManager;
 import prelude.network.ProcessedResult;
 import prelude.network.processedresults.PreludePlayerInfo;
@@ -11,7 +11,7 @@ import prelude.network.processedresults.PreludePlayerInfo;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public final class HandshakePacket extends InboundPacket {
+public final class HandshakePacket extends ServerBoundPacket {
     public static final String HANDSHAKE_PACKET_FORMAT =
             "{" +
                     "\"username\":\"%username%\"," +

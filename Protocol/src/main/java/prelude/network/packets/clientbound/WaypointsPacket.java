@@ -1,13 +1,13 @@
-package prelude.network.packets.outbound;
+package prelude.network.packets.clientbound;
 
-import prelude.network.OutboundPacketBuilder;
-import prelude.network.OutboundPacket;
+import prelude.network.ClientBoundPacketBuilder;
+import prelude.network.ClientBoundPacket;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class WaypointsPacket extends OutboundPacket {
+public class WaypointsPacket extends ClientBoundPacket {
     private List<Waypoint> waypoints = new ArrayList<>();
 
     public WaypointsPacket() {
@@ -52,7 +52,7 @@ public class WaypointsPacket extends OutboundPacket {
         return Objects.equals(waypoints, that.waypoints);
     }
 
-    public static class WaypointsPacketBuilder extends OutboundPacketBuilder<WaypointsPacket> {
+    public static class WaypointsPacketBuilder extends ClientBoundPacketBuilder<WaypointsPacket> {
         private final List<Waypoint> waypoints = new ArrayList<>();
 
         private WaypointsPacketBuilder() {}

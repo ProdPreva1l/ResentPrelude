@@ -3,8 +3,8 @@ package prelude.api.mods;
 import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
 import prelude.network.PacketManager;
-import prelude.network.packets.outbound.OffhandPacket;
-import prelude.network.packets.outbound.OffhandPacket.OffhandPacketBuilder;
+import prelude.network.packets.clientbound.OffhandPacket;
+import prelude.network.packets.clientbound.OffhandPacket.OffhandPacketBuilder;
 
 public abstract class OffHand extends ResentMod {
 

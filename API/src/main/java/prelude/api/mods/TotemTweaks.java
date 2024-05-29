@@ -3,8 +3,8 @@ package prelude.api.mods;
 import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
 import prelude.network.PacketManager;
-import prelude.network.packets.outbound.TotemPoppedPacket;
-import prelude.network.packets.outbound.TotemPoppedPacket.TotemPoppedPacketBuilder;
+import prelude.network.packets.clientbound.TotemPoppedPacket;
+import prelude.network.packets.clientbound.TotemPoppedPacket.TotemPoppedPacketBuilder;
 
 public abstract class TotemTweaks extends ResentMod {
     protected TotemTweaks() {

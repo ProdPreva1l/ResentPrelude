@@ -3,8 +3,8 @@ package prelude.api.mods;
 import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
 import prelude.network.PacketManager;
-import prelude.network.packets.outbound.ServerTpsPacket;
-import prelude.network.packets.outbound.ServerTpsPacket.ServerTpsPacketBuilder;
+import prelude.network.packets.clientbound.ServerTpsPacket;
+import prelude.network.packets.clientbound.ServerTpsPacket.ServerTpsPacketBuilder;
 
 public abstract class ServerTps extends ResentMod {
     protected ServerTps() {

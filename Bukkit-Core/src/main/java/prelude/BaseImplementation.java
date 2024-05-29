@@ -14,7 +14,7 @@ import prelude.mods.BukkitAnchorRenderer;
 import prelude.mods.BukkitOffHand;
 import prelude.mods.BukkitServerTps;
 import prelude.mods.BukkitTotemTweaks;
-import prelude.network.InboundPacket;
+import prelude.network.ServerBoundPacket;
 import prelude.network.PacketManager;
 import prelude.network.ProcessedResult;
 
@@ -130,7 +130,7 @@ public final class BaseImplementation implements Listener {
             PreludePlugin.getInstance().debug("Player: {}".replace("{}", player.getName()));
             PreludePlugin.getInstance().debug("Message: {}".replace("{}", new String(message)));
 
-            InboundPacket pkt = PacketManager.getInboundPacketFromString(new String(message));
+            ServerBoundPacket pkt = PacketManager.getInboundPacketFromString(new String(message));
 
             if (pkt == null) {
                 PreludePlugin.getInstance().debug("Received message did not correspond to any packet!");

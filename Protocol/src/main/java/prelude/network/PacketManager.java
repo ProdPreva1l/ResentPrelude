@@ -1,7 +1,7 @@
 package prelude.network;
 
-import prelude.network.packets.inbound.HandshakePacket;
-import prelude.network.packets.outbound.*;
+import prelude.network.packets.serverbound.HandshakePacket;
+import prelude.network.packets.clientbound.*;
 import prelude.network.processedresults.PreludePlayerInfo;
 
 import java.util.HashMap;
@@ -10,16 +10,16 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class PacketManager {
-    protected static Set<InboundPacket> inboundPackets = new HashSet<>();
-    protected static Map<Class<? extends OutboundPacket>, OutboundPacketBuilder>
-            outboundPackets = new HashMap<>();
+    protected static Set<ServerBoundPacket> serverBoundPackets = new HashSet<>();
+    protected static Map<Class<? extends ClientBoundPacket>, ClientBoundPacketBuilder>
+            clientBoundPacketClassToBuilderMap = new HashMap<>();
 
 
 
     public abstract ProcessedResult processHandshakeInfo(PreludePlayerInfo info);
 
-    public static InboundPacket getInboundPacketFromString(String string) {
-        for (InboundPacket packet : inboundPackets)
+    public static ServerBoundPacket getInboundPacketFromString(String string) {
+        for (ServerBoundPacket packet : serverBoundPackets)
                 if (packet.getPattern().matcher(string.trim().toLowerCase()).matches())
                     return packet.createNewInstanceWithData(string);
 
@@ -32,9 +32,9 @@ public abstract class PacketManager {
      * @return The packet builder of that class
      * @throws IllegalArgumentException if the packet class is not registered
      */
-    public static <E extends OutboundPacket> OutboundPacketBuilder getOutboundPacketBuilder(Class<E> clazz) {
-        if (outboundPackets.containsKey(clazz))
-            return outboundPackets.get(clazz);
+    public static <E extends ClientBoundPacket> ClientBoundPacketBuilder getOutboundPacketBuilder(Class<E> clazz) {
+        if (clientBoundPacketClassToBuilderMap.containsKey(clazz))
+            return clientBoundPacketClassToBuilderMap.get(clazz);
 
         throw new IllegalArgumentException("Failed to register outbound packet builder, {}!"
                 .replace("{}", clazz.getSimpleName()));

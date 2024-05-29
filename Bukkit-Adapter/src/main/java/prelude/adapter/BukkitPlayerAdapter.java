@@ -4,7 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import prelude.api.Prelude;
 import prelude.api.PreludePlayer;
 import org.bukkit.entity.Player;
-import prelude.network.OutboundPacket;
+import prelude.network.ClientBoundPacket;
 import prelude.network.processedresults.PreludePlayerInfo;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ public final class BukkitPlayerAdapter {
     private static final PreludePlayer NON_RESENT_CLIENT_PLAYER =
             new PreludePlayer(null, null, PreludePlayerInfo.UNKNOWN_INFO) {
                 @Override
-                public void sendPacket(OutboundPacket packet) {
+                public void sendPacket(ClientBoundPacket packet) {
 
                 }
     };
@@ -29,7 +29,7 @@ public final class BukkitPlayerAdapter {
         if (info.containsKey(player.getName().toLowerCase())) {
             PreludePlayer preludePlayer = new PreludePlayer(player.getName(), player.getUniqueId(), info.get(player.getName().toLowerCase())) {
                 @Override
-                public void sendPacket(OutboundPacket packet) {
+                public void sendPacket(ClientBoundPacket packet) {
                     player.sendPluginMessage(
                             plugin,
                             Prelude.CHANNEL,

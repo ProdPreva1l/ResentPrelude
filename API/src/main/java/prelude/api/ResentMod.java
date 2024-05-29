@@ -1,11 +1,11 @@
 package prelude.api;
 
 import prelude.network.PacketManager;
-import prelude.network.packets.outbound.ModDisablePacket;
-import prelude.network.packets.outbound.ModInitPacket;
+import prelude.network.packets.clientbound.ModDisablePacket;
+import prelude.network.packets.clientbound.ModInitPacket;
 
-import static prelude.network.packets.outbound.ModDisablePacket.*;
-import static prelude.network.packets.outbound.ModInitPacket.*;
+import static prelude.network.packets.clientbound.ModDisablePacket.*;
+import static prelude.network.packets.clientbound.ModInitPacket.*;
 
 public abstract class ResentMod {
     protected boolean enabled = false;
