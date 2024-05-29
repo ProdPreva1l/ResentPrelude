@@ -4,7 +4,7 @@ repositories {
 dependencies {
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     compileOnly 'com.google.code.gson:gson:2.11.0'
-    compileOnly project(":Protocol")
+    implementation project(":Protocol")
 }
 
 shadowJar {
