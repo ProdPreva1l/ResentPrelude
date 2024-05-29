@@ -1,7 +1,5 @@
 package prelude.api.packet;
 
-import java.util.regex.Pattern;
-
 public abstract class Packet {
     protected abstract Packet createNewInstanceWithData(String data);
 
