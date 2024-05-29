@@ -77,12 +77,12 @@ public final class ResentHandshakePacket extends InboundPacket {
 
     @Override
     public int hashCode() {
-        return preludePlayerInfo.hashCode();
+        return preludePlayerInfo == null ? 0 : preludePlayerInfo.hashCode();
     }
 
     @Override
     public String toString() {
-        return preludePlayerInfo.toString();
+        return preludePlayerInfo == null ? "null" :preludePlayerInfo.toString();
     }
 
     @Override
