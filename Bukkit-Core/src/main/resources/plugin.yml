@@ -1,8 +1,0 @@
-name: PreludeAPI
-version: '${version}'
-main: prelude.PreludePlugin
-api-version: '1.8'
-authors:
-  - Preva1l
-  - Cire3
-description: The API for Resent Client
