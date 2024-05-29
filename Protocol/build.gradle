@@ -10,4 +10,3 @@ shadowJar {
     minimize()
 }
 jar.dependsOn shadowJar
-logger.lifecycle("Building Protocol ${version}")
