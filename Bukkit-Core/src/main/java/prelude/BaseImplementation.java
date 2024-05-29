@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import prelude.adapter.BukkitPlayerAdapter;
@@ -14,11 +13,9 @@ import prelude.mods.BukkitAnchorRenderer;
 import prelude.mods.BukkitOffHand;
 import prelude.mods.BukkitServerTps;
 import prelude.mods.BukkitTotemTweaks;
-import prelude.network.ServerBoundPacket;
-import prelude.network.PacketManager;
-import prelude.network.ProcessedResult;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -36,7 +33,7 @@ public final class BaseImplementation implements Listener {
                 return;
             }
             for (Player player : Bukkit.getOnlinePlayers()) {
-                tpsMod.get().sendServerTpsUpdate(BukkitPlayerAdapter.getPreludePlayer(plugin, player), getTPS()[0]);
+                tpsMod.get().sendServerTpsUpdate(BukkitPlayerAdapter.adaptPlayer(plugin, player), getTPS()[0]);
             }
         };
 
@@ -91,12 +88,6 @@ public final class BaseImplementation implements Listener {
         BukkitPlayerAdapter.remove(player);
     }
 
-    @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        BukkitPrelude.getInstance().validateConnection(BukkitPlayerAdapter.getPreludePlayer(plugin, player));
-    }
-
     private double[] getTPS() {
         try {
             Object minecraftServer = getMinecraftServer();
@@ -128,19 +119,7 @@ public final class BaseImplementation implements Listener {
             // dump
             PreludePlugin.getInstance().debug("Channel: {}".replace("{}", channel));
             PreludePlugin.getInstance().debug("Player: {}".replace("{}", player.getName()));
-            PreludePlugin.getInstance().debug("Message: {}".replace("{}", new String(message)));
-
-            ServerBoundPacket pkt = PacketManager.getInboundPacketFromString(new String(message));
-
-            if (pkt == null) {
-                PreludePlugin.getInstance().debug("Received message did not correspond to any packet!");
-                return;
-            }
-
-            ProcessedResult result = pkt.processPacket(Prelude.getPacketManager());
-            if (result != null) {
-
-            }
+            PreludePlugin.getInstance().debug("Message: {}".replace("{}", Arrays.toString(message)));
         }
     }
 }

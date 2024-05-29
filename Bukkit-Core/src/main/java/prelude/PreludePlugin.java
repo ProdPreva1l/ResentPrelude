@@ -8,9 +8,7 @@ import prelude.adapter.VersionAdapter;
 import prelude.adapter.impl.Adapter_1_11;
 import prelude.adapter.impl.Adapter_1_16_5;
 import prelude.adapter.impl.Adapter_1_9;
-import prelude.api.Prelude;
 import prelude.mods.*;
-import prelude.network.PacketManager;
 
 import java.io.File;
 import java.util.Optional;
@@ -23,10 +21,6 @@ public final class PreludePlugin extends JavaPlugin {
     private PreludePlugin(JavaPluginLoader loader, PluginDescriptionFile description,
                           File dataFolder, File file) {
         super(loader, description, dataFolder, file);
-    }
-
-    private PreludePlugin() {
-        super();
     }
 
     @Override
@@ -81,14 +75,10 @@ public final class PreludePlugin extends JavaPlugin {
         new BukkitServerTps();
         new BukkitAnchorRenderer();
 
-        BukkitPacketManager.initPackets();
-
         getServer().getPluginManager().registerEvents(new BaseImplementation(this), this);
-      
-        getServer().getMessenger().registerOutgoingPluginChannel(this, Prelude.CHANNEL);
         getServer().getMessenger().registerIncomingPluginChannel(
                 this,
-                Prelude.CHANNEL,
+                "PRE|Notif",
                 new BaseImplementation.ResentClientMessageListener(this));
 
         getLogger().info("Fully Started Resent Client's Prelude API");

@@ -1,8 +1,5 @@
 package prelude.api;
 
-import prelude.network.ClientBoundPacket;
-import prelude.network.processedresults.PreludePlayerInfo;
-
 import java.util.UUID;
 
 @SuppressWarnings("unused")
@@ -10,12 +7,9 @@ public abstract class PreludePlayer {
     private final String username;
     private final UUID uuid;
 
-    private final PreludePlayerInfo preludePlayerInfo;
-
-    public PreludePlayer(String username, UUID uuid, PreludePlayerInfo preludePlayerInfo) {
+    public PreludePlayer(String username, UUID uuid) {
         this.username = username;
         this.uuid = uuid;
-        this.preludePlayerInfo = preludePlayerInfo;
     }
 
     public String getUsername() {
@@ -26,15 +20,5 @@ public abstract class PreludePlayer {
         return uuid;
     }
 
-    public PreludePlayerInfo getPlayerInfo() {
-        return preludePlayerInfo;
-    }
-
-    /**
-     * Sends the packet
-     * @param packet Outbound Packet to send
-     * @author cire3
-     * @since 1.0.0
-     */
-    public abstract void sendPacket(ClientBoundPacket packet);
+    public abstract void sendPacket(String modid, String msg);
 }

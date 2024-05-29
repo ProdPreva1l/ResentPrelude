@@ -2,13 +2,13 @@ package prelude.api.mods;
 
 import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
-import prelude.network.PacketManager;
-import prelude.network.packets.clientbound.AnchorRendererPacket;
-import prelude.network.packets.clientbound.AnchorRendererPacket.AnchorRendererPacketBuilder;
+
+import java.util.Arrays;
 
 public abstract class AnchorRenderer extends ResentMod {
     protected AnchorRenderer() {
         super();
+        dataRegistry.put("update", "{\"x\":\"%x%\",\"y\":\"%y%\",\"z\":\"%z%\",\"charge\":\"%charge%\"}");
     }
 
     public void sendPlacedAnchorPacket(PreludePlayer preludePlayer, int x, int y, int z) {
@@ -19,18 +19,12 @@ public abstract class AnchorRenderer extends ResentMod {
      * @param charge 1 to 3, describing the amount of glowstone in the anchor
      */
     public void sendInteractedAnchorPacket(PreludePlayer preludePlayer, int x, int y, int z, int charge) {
-        AnchorRendererPacketBuilder builder = (AnchorRendererPacketBuilder)
-                PacketManager.getOutboundPacketBuilder(AnchorRendererPacket.class);
-
-        preludePlayer.sendPacket(
-                builder
-                        .x(x)
-                        .y(y)
-                        .z(z)
-                        .charge(charge)
-                        .receiver(this.getReceiverId())
-                        .build()
-        );
+        preludePlayer.sendPacket(this.getModId(),
+                this.getData("update")
+                        .replace("%x%", x + "")
+                        .replace("%y%", y + "")
+                        .replace("%z%", z + "")
+                        .replace("%charge%", charge + ""));
     }
 
     public void sendBlownUpAnchorPacket(PreludePlayer preludePlayer, int x, int y, int z) {
@@ -38,7 +32,7 @@ public abstract class AnchorRenderer extends ResentMod {
     }
 
     @Override
-    public final String getReceiverId() {
+    public final String getModId() {
         return "anchor_renderer";
     }
 }
