@@ -1,7 +1,6 @@
 package prelude.api;
 
-
-import prelude.api.packet.PacketManager;
+import prelude.network.PacketManager;
 
 import java.util.Optional;
 import java.util.Set;

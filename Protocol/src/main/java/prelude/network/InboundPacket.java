@@ -1,4 +1,4 @@
-package prelude.api.packet;
+package prelude.network;
 
 import java.util.regex.Pattern;
 

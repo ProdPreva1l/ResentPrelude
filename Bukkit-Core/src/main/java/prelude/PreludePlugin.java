@@ -8,10 +8,9 @@ import prelude.adapter.VersionAdapter;
 import prelude.adapter.impl.Adapter_1_11;
 import prelude.adapter.impl.Adapter_1_16_5;
 import prelude.adapter.impl.Adapter_1_9;
-import prelude.api.packet.Packet;
 import prelude.api.Prelude;
-import prelude.api.packet.PacketManager;
 import prelude.mods.*;
+import prelude.network.PacketManager;
 
 import java.io.File;
 import java.util.Optional;
@@ -82,7 +81,7 @@ public final class PreludePlugin extends JavaPlugin {
         new BukkitServerTps();
         new BukkitAnchorRenderer();
 
-        PacketManager.initPackets();
+        BukkitPacketManager.initPackets();
 
         getServer().getPluginManager().registerEvents(new BaseImplementation(this), this);
       

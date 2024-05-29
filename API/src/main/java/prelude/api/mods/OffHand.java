@@ -2,27 +2,36 @@ package prelude.api.mods;
 
 import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
+import prelude.network.PacketManager;
+import prelude.network.packets.outbound.OffhandPacket;
+import prelude.network.packets.outbound.OffhandPacket.OffhandPacketBuilder;
 
 public abstract class OffHand extends ResentMod {
 
     protected OffHand() {
         super();
-        dataRegistry.put("equipped", "{\"action\":\"equip_item\",\"item_id\":\"%item_id%\",\"enchanted\":%enchanted%}");
-        dataRegistry.put("unequipped", "{\"action\":\"un-equip_item\",\"item_id\":\"%item_id%\",\"enchanted\":%enchanted%}");
     }
 
     public void sendOffhandEquipEvent(PreludePlayer preludePlayer, String itemId, boolean enchanted) {
-        preludePlayer.sendPacket(this.getReceiverId(),
-                this.getData("equipped")
-                        .replace("%item_id%", itemId)
-                        .replace("%enchanted%", enchanted + ""));
+        sendOffhandEvent(preludePlayer, itemId, enchanted, "equip_item");
     }
 
     public void sendOffhandUnEquipEvent(PreludePlayer preludePlayer, String itemId, boolean enchanted) {
-        preludePlayer.sendPacket(this.getReceiverId(),
-                this.getData("unequipped")
-                        .replace("%item_id%", itemId)
-                        .replace("%enchanted%", enchanted + ""));
+        sendOffhandEvent(preludePlayer, itemId, enchanted, "un-equip_item");
+    }
+
+    private void sendOffhandEvent(PreludePlayer preludePlayer, String itemId, boolean enchanted, String action) {
+        OffhandPacketBuilder builder = (OffhandPacketBuilder)
+                PacketManager.getOutboundPacketBuilder(OffhandPacket.class);
+
+        preludePlayer.sendPacket(
+                builder
+                        .receiver(this.getReceiverId())
+                        .action(action)
+                        .itemId(itemId)
+                        .enchanted(enchanted)
+                        .build()
+        );
     }
 
     @Override

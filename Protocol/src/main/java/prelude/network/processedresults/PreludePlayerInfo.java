@@ -1,7 +1,7 @@
-package prelude.api.packet.processedresults;
+package prelude.network.processedresults;
 
-import prelude.api.packet.ProcessedResult;
-import prelude.api.packet.packets.inbound.HandshakePacket;
+import prelude.network.ProcessedResult;
+import prelude.network.packets.inbound.HandshakePacket;
 
 import java.util.Arrays;
 import java.util.Objects;

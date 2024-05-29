@@ -1,10 +1,8 @@
-package prelude.api.packet;
+package prelude.network;
 
-import prelude.api.packet.packets.inbound.HandshakePacket;
-import prelude.api.packet.packets.outbound.ModDisablePacket;
-import prelude.api.packet.packets.outbound.ModInitPacket;
-import prelude.api.packet.packets.outbound.WaypointsPacket;
-import prelude.api.packet.processedresults.PreludePlayerInfo;
+import prelude.network.packets.inbound.HandshakePacket;
+import prelude.network.packets.outbound.*;
+import prelude.network.processedresults.PreludePlayerInfo;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,11 +26,18 @@ public abstract class PacketManager {
         return null;
     }
 
+    /**
+     * Gets the appropriate packet builder for a packet
+     * @param clazz Class of the packet to create
+     * @return The packet builder of that class
+     * @throws IllegalArgumentException if the packet class is not registered
+     */
     public static <E extends OutboundPacket> OutboundPacketBuilder getOutboundPacketBuilder(Class<E> clazz) {
         if (outboundPackets.containsKey(clazz))
             return outboundPackets.get(clazz);
 
-        return null;
+        throw new IllegalArgumentException("Failed to register outbound packet builder, {}!"
+                .replace("{}", clazz.getSimpleName()));
     }
 
     public static void initPackets() {
@@ -43,5 +48,9 @@ public abstract class PacketManager {
         new WaypointsPacket();
         new ModInitPacket();
         new ModDisablePacket();
+        new AnchorRendererPacket();
+        new OffhandPacket();
+        new ServerTpsPacket();
+        new TotemPoppedPacket();
     }
 }

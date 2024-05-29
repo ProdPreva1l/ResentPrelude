@@ -1,7 +1,7 @@
 package prelude.api;
 
-import prelude.api.packet.OutboundPacket;
-import prelude.api.packet.processedresults.PreludePlayerInfo;
+import prelude.network.OutboundPacket;
+import prelude.network.processedresults.PreludePlayerInfo;
 
 import java.util.UUID;
 

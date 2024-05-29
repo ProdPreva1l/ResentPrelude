@@ -1,19 +1,11 @@
-package prelude.api.packet.packets.outbound;
+package prelude.network.packets.outbound;
 
-import prelude.api.packet.OutboundPacket;
-import prelude.api.packet.OutboundPacketBuilder;
+import prelude.network.OutboundPacket;
+import prelude.network.OutboundPacketBuilder;
 
 import java.util.Objects;
 
 public class ModDisablePacket extends OutboundPacket {
-    public static final String RESENT_MOD_DISABLE_PACKET_FORMAT =
-            "{" +
-                    "\"packet_receiver\":\"%packet_receiver%\"," +
-                    "\"message\":\"disable\"" +
-            "}";
-
-    private String receiver;
-
     public ModDisablePacket() {
         super(ModInitPacket.class);
     }
@@ -24,18 +16,14 @@ public class ModDisablePacket extends OutboundPacket {
 
     @Override
     public String serialize() {
-        return RESENT_MOD_DISABLE_PACKET_FORMAT
-                .replace("%packet_receiver%", receiver);
+        return GENERIC_PACKET_FORMAT
+                .replace("%packet_receiver%", receiver)
+                .replace("%message%", "disable");
     }
 
     @Override
     public ModDisablePacketBuilder builder() {
         return new ModDisablePacketBuilder();
-    }
-
-    @Override
-    public String toString() {
-        return "ModDisablePacket:" + serialize();
     }
 
     @Override
@@ -46,18 +34,12 @@ public class ModDisablePacket extends OutboundPacket {
         return Objects.equals(receiver, that.receiver);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(receiver);
-    }
-
     public static class ModDisablePacketBuilder extends OutboundPacketBuilder<ModDisablePacket> {
-        private String receiver;
-
         private ModDisablePacketBuilder() {}
 
-        public ModDisablePacketBuilder setReceiver(String receiver) {
-            this.receiver = receiver;
+        @Override
+        public ModDisablePacketBuilder receiver(String receiver) {
+            super.receiver(receiver);
             return this;
         }
 
@@ -72,16 +54,6 @@ public class ModDisablePacket extends OutboundPacket {
             if (!(o instanceof ModDisablePacketBuilder)) return false;
             ModDisablePacketBuilder that = (ModDisablePacketBuilder) o;
             return Objects.equals(receiver, that.receiver);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hashCode(receiver);
-        }
-
-        @Override
-        public String toString() {
-            return "ModDisablePacketBuilder:" + "{" + receiver + "}";
         }
     }
 }

@@ -1,22 +1,21 @@
-package prelude.api.packet.packets.outbound;
+package prelude.network.packets.outbound;
 
-import prelude.api.packet.*;
+import prelude.network.OutboundPacketBuilder;
+import prelude.network.OutboundPacket;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class WaypointsPacket extends OutboundPacket {
-    public static final String RESENT_WAYPOINTS_PACKET_FORMAT =
-            "{" +
-                    "\"packet_receiver\":\"waypoints_data\"," +
-                    "\"message\":\"%message%\"" +
-            "}";
-
     private List<Waypoint> waypoints = new ArrayList<>();
 
     public WaypointsPacket() {
         super(WaypointsPacket.class);
+    }
+
+    private WaypointsPacket(List<Waypoint> waypoints) {
+        this.waypoints = waypoints;
     }
 
     @Override
@@ -35,12 +34,9 @@ public class WaypointsPacket extends OutboundPacket {
             b.append("{}");
         }
 
-        return RESENT_WAYPOINTS_PACKET_FORMAT
+        return GENERIC_PACKET_FORMAT
+                .replace("%receiver%", "waypoints-data")
                 .replace("%message%", b.toString());
-    }
-
-    private WaypointsPacket(List<Waypoint> waypoints) {
-        this.waypoints = waypoints;
     }
 
     @Override
@@ -56,34 +52,24 @@ public class WaypointsPacket extends OutboundPacket {
         return Objects.equals(waypoints, that.waypoints);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(waypoints);
-    }
-
     public static class WaypointsPacketBuilder extends OutboundPacketBuilder<WaypointsPacket> {
         private final List<Waypoint> waypoints = new ArrayList<>();
 
         private WaypointsPacketBuilder() {}
 
-        public WaypointsPacketBuilder addWaypoint(Waypoint waypoint) {
+        public WaypointsPacketBuilder waypoint(Waypoint waypoint) {
             waypoints.add(waypoint);
             return this;
         }
 
-        public WaypointsPacketBuilder addWaypoints(List<Waypoint> waypoints) {
+        public WaypointsPacketBuilder waypoints(List<Waypoint> waypoints) {
             this.waypoints.addAll(waypoints);
             return this;
         }
 
-        public WaypointsPacketBuilder removeWaypoint(Waypoint waypoint) {
-            waypoints.remove(waypoint);
-            return this;
-        }
-
-        public WaypointsPacketBuilder removeWaypoints(List<Waypoint> waypoints) {
-            this.waypoints.removeAll(waypoints);
-            return this;
+        @Override
+        public WaypointsPacketBuilder receiver(String receiver) {
+            throw new RuntimeException("You can't set receiver for Waypoints Packet!");
         }
 
         @Override
@@ -96,17 +82,7 @@ public class WaypointsPacket extends OutboundPacket {
             if (this == o) return true;
             if (!(o instanceof WaypointsPacketBuilder)) return false;
             WaypointsPacketBuilder that = (WaypointsPacketBuilder) o;
-            return Objects.equals(waypoints, that.waypoints);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hashCode(waypoints);
-        }
-
-        @Override
-        public String toString() {
-            return "ResentWaypointsPacketBuilder:" + new WaypointsPacket(waypoints).serialize();
+            return Objects.equals(waypoints, that.waypoints) && Objects.equals(receiver, that.receiver);
         }
     }
 

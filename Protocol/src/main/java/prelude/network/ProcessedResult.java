@@ -1,4 +1,4 @@
-package prelude.api.packet;
+package prelude.network;
 
 public abstract class ProcessedResult {
     public abstract String toString();

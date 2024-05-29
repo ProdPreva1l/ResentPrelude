@@ -9,15 +9,14 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import prelude.adapter.BukkitPlayerAdapter;
 import prelude.adapter.VersionAdapter;
-import prelude.api.packet.InboundPacket;
-import prelude.api.packet.Packet;
 import prelude.api.Prelude;
-import prelude.api.packet.PacketManager;
-import prelude.api.packet.ProcessedResult;
 import prelude.mods.BukkitAnchorRenderer;
 import prelude.mods.BukkitOffHand;
 import prelude.mods.BukkitServerTps;
 import prelude.mods.BukkitTotemTweaks;
+import prelude.network.InboundPacket;
+import prelude.network.PacketManager;
+import prelude.network.ProcessedResult;
 
 import java.lang.reflect.Field;
 import java.util.Optional;

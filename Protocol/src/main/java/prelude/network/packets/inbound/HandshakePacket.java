@@ -1,12 +1,12 @@
-package prelude.api.packet.packets.inbound;
+package prelude.network.packets.inbound;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import prelude.api.packet.InboundPacket;
-import prelude.api.packet.PacketManager;
-import prelude.api.packet.ProcessedResult;
-import prelude.api.packet.processedresults.PreludePlayerInfo;
+import prelude.network.InboundPacket;
+import prelude.network.PacketManager;
+import prelude.network.ProcessedResult;
+import prelude.network.processedresults.PreludePlayerInfo;
 
 import java.util.Objects;
 import java.util.regex.Pattern;

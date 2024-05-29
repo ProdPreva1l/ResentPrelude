@@ -1,9 +1,9 @@
 package prelude;
 
 import prelude.adapter.BukkitPlayerAdapter;
-import prelude.api.packet.PacketManager;
-import prelude.api.packet.ProcessedResult;
-import prelude.api.packet.processedresults.PreludePlayerInfo;
+import prelude.network.PacketManager;
+import prelude.network.ProcessedResult;
+import prelude.network.processedresults.PreludePlayerInfo;
 
 public class BukkitPacketManager extends PacketManager {
     @Override
