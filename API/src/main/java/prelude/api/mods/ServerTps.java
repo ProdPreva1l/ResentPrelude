@@ -2,23 +2,29 @@ package prelude.api.mods;
 
 import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
-
-import java.util.Arrays;
+import prelude.network.PacketManager;
+import prelude.network.packets.clientbound.ServerTpsPacket;
+import prelude.network.packets.clientbound.ServerTpsPacket.ServerTpsPacketBuilder;
 
 public abstract class ServerTps extends ResentMod {
     protected ServerTps() {
         super();
-        dataRegistry.put("tps_count", "%server-tps%");
     }
 
     public void sendServerTpsUpdate(PreludePlayer preludePlayer, double currentTps) {
-        preludePlayer.sendPacket(this.getModId(),
-                this.getData("tps_count")
-                        .replace("%server-tps%", currentTps + ""));
+        ServerTpsPacketBuilder builder = (ServerTpsPacketBuilder)
+                PacketManager.getOutboundPacketBuilder(ServerTpsPacket.class);
+
+        preludePlayer.sendPacket(
+                builder
+                        .receiver(this.getReceiverId())
+                        .tps(currentTps)
+                        .build()
+        );
     }
 
     @Override
-    public final String getModId() {
+    public final String getReceiverId() {
         return "server_tps";
     }
 }
