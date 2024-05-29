@@ -4,7 +4,6 @@ import java.util.regex.Pattern;
 
 public abstract class Packet {
     protected abstract Packet createNewInstanceWithData(String data);
-    protected abstract Pattern getPattern();
 
     public abstract ProcessedResult processPacket(PacketManager manager);
 
