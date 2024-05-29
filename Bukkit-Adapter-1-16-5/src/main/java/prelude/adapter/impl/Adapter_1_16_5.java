@@ -64,10 +64,10 @@ public final class Adapter_1_16_5 implements VersionAdapter {
                 }
                 offhandItemMap.replace(player, currentOffhand);
                 if (currentOffhand.getType().isAir()) {
-                    offhandMod.sendOffhandUnEquipEvent(BukkitPlayerAdapter.adaptPlayer(plugin, player),
+                    offhandMod.sendOffhandUnEquipEvent(BukkitPlayerAdapter.getPreludePlayer(plugin, player),
                             Material.AIR.name(), false);
                 } else {
-                    offhandMod.sendOffhandEquipEvent(BukkitPlayerAdapter.adaptPlayer(plugin, player),
+                    offhandMod.sendOffhandEquipEvent(BukkitPlayerAdapter.getPreludePlayer(plugin, player),
                             currentOffhand.getType().name(), !currentOffhand.getEnchantments().isEmpty());
                 }
             }
@@ -83,7 +83,7 @@ public final class Adapter_1_16_5 implements VersionAdapter {
                 if (!mod.isPresent() || !mod.get().isAllowed() || !mod.get().isOfficiallyHooked()) {
                     return;
                 }
-                mod.get().sendTotemPoppedEvent(BukkitPlayerAdapter.adaptPlayer(plugin, player));
+                mod.get().sendTotemPoppedEvent(BukkitPlayerAdapter.getPreludePlayer(plugin, player));
             }
         }
     }
@@ -105,7 +105,7 @@ public final class Adapter_1_16_5 implements VersionAdapter {
             int y = event.getBlockPlaced().getY();
             int z = event.getBlockPlaced().getZ();
 
-            mod.get().sendPlacedAnchorPacket(BukkitPlayerAdapter.adaptPlayer(plugin, event.getPlayer()), x, y, z);
+            mod.get().sendPlacedAnchorPacket(BukkitPlayerAdapter.getPreludePlayer(plugin, event.getPlayer()), x, y, z);
         }
 
         @EventHandler(priority = EventPriority.MONITOR)
@@ -136,11 +136,11 @@ public final class Adapter_1_16_5 implements VersionAdapter {
             int charges = ((RespawnAnchor) event.getClickedBlock().getBlockData()).getCharges();
 
             if (charges == 3) {
-                mod.get().sendBlownUpAnchorPacket(BukkitPlayerAdapter.adaptPlayer(plugin, event.getPlayer()), x, y, z);
+                mod.get().sendBlownUpAnchorPacket(BukkitPlayerAdapter.getPreludePlayer(plugin, event.getPlayer()), x, y, z);
                 return;
             }
 
-            mod.get().sendInteractedAnchorPacket(BukkitPlayerAdapter.adaptPlayer(plugin, event.getPlayer()), x, y, z, charges + 1);
+            mod.get().sendInteractedAnchorPacket(BukkitPlayerAdapter.getPreludePlayer(plugin, event.getPlayer()), x, y, z, charges + 1);
         }
     }
 
