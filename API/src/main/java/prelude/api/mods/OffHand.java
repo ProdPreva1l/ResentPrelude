@@ -3,8 +3,6 @@ package prelude.api.mods;
 import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
 
-import java.util.Arrays;
-
 public abstract class OffHand extends ResentMod {
 
     protected OffHand() {
@@ -14,21 +12,21 @@ public abstract class OffHand extends ResentMod {
     }
 
     public void sendOffhandEquipEvent(PreludePlayer preludePlayer, String itemId, boolean enchanted) {
-        preludePlayer.sendPacket(this.getModId(),
+        preludePlayer.sendPacket(this.getReceiverId(),
                 this.getData("equipped")
                         .replace("%item_id%", itemId)
                         .replace("%enchanted%", enchanted + ""));
     }
 
     public void sendOffhandUnEquipEvent(PreludePlayer preludePlayer, String itemId, boolean enchanted) {
-        preludePlayer.sendPacket(this.getModId(),
+        preludePlayer.sendPacket(this.getReceiverId(),
                 this.getData("unequipped")
                         .replace("%item_id%", itemId)
                         .replace("%enchanted%", enchanted + ""));
     }
 
     @Override
-    public final String getModId() {
+    public final String getReceiverId() {
         return "off_hand";
     }
 }

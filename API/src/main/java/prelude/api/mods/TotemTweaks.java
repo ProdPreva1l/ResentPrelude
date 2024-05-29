@@ -11,11 +11,11 @@ public abstract class TotemTweaks extends ResentMod {
     }
 
     public void sendTotemPoppedEvent(PreludePlayer preludePlayer) {
-        preludePlayer.sendPacket(this.getModId(), dataRegistry.get("totem_popped"));
+        preludePlayer.sendPacket(this.getReceiverId(), dataRegistry.get("totem_popped"));
     }
 
     @Override
-    public final String getModId() {
+    public final String getReceiverId() {
         return "totem_tweaks";
     }
 }

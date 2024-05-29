@@ -7,7 +7,7 @@ public abstract class InboundPacket extends Packet {
         PacketManager.inboundPackets.add(this);
     }
 
-    @Override
+    public abstract ProcessedResult processPacket(PacketManager manager);
     protected InboundPacket createNewInstanceWithData(String data) {
         return null;
     }

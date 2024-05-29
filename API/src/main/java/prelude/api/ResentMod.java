@@ -1,5 +1,9 @@
 package prelude.api;
 
+import prelude.api.packet.PacketManager;
+import prelude.api.packet.packets.outbound.ModDisablePacket;
+import prelude.api.packet.packets.outbound.ModInitPacket;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,14 +19,31 @@ public abstract class ResentMod {
     }
 
     public void initMod(PreludePlayer preludePlayer) {
-        preludePlayer.sendPacket(this.getModId(), this.getData("init"));
+        ModInitPacket.ModInitPacketBuilder builder = (ModInitPacket.ModInitPacketBuilder)
+                PacketManager.getOutboundPacketBuilder(ModInitPacket.class);
+
+        if (builder == null)
+            throw new RuntimeException("Failed to register outbound packet builder, {}!"
+                    .replace("{}", ModInitPacket.class.getSimpleName()));
+
+        builder.setReceiver(this.getReceiverId());
+
+        preludePlayer.sendPacket(builder.build());
     }
 
     public void disableMod(PreludePlayer preludePlayer) {
-        preludePlayer.sendPacket(this.getModId(), this.getData("disable"));
+        ModDisablePacket.ModDisablePacketBuilder builder = (ModDisablePacket.ModDisablePacketBuilder)
+                PacketManager.getOutboundPacketBuilder(ModDisablePacket.class);
+
+        if (builder == null)
+            throw new RuntimeException("Failed to register outbound packet builder, {}!"
+                    .replace("{}", ModDisablePacket.class.getSimpleName()));
+        builder.setReceiver(this.getReceiverId());
+
+        preludePlayer.sendPacket(builder.build());
     }
 
-    public abstract String getModId();
+    public abstract String getReceiverId();
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public abstract boolean isAllowed();

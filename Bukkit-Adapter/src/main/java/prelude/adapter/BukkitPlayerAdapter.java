@@ -1,6 +1,7 @@
 package prelude.adapter;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import prelude.api.packet.OutboundPacket;
 import prelude.api.packet.processedresults.PreludePlayerInfo;
 import prelude.api.Prelude;
 import prelude.api.PreludePlayer;
@@ -13,7 +14,7 @@ public final class BukkitPlayerAdapter {
     private static final PreludePlayer NON_RESENT_CLIENT_PLAYER =
             new PreludePlayer(null, null, PreludePlayerInfo.UNKNOWN_INFO) {
                 @Override
-                public void sendPacket(String modid, String msg) {
+                public void sendPacket(OutboundPacket packet) {
 
                 }
     };
@@ -28,14 +29,11 @@ public final class BukkitPlayerAdapter {
         if (info.containsKey(player.getName().toLowerCase())) {
             PreludePlayer preludePlayer = new PreludePlayer(player.getName(), player.getUniqueId(), info.get(player.getName().toLowerCase())) {
                 @Override
-                public void sendPacket(String modid, String msg) {
+                public void sendPacket(OutboundPacket packet) {
                     player.sendPluginMessage(
                             plugin,
                             Prelude.CHANNEL,
-                            PreludePlayer.PACKET_FORMAT
-                                    .replace("%modid%", modid)
-                                    .replace("%message%", msg)
-                                    .getBytes()
+                            packet.serialize().getBytes()
                     );
                 }
             };

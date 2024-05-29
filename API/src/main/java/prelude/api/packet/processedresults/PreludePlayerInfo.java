@@ -1,7 +1,7 @@
 package prelude.api.packet.processedresults;
 
 import prelude.api.packet.ProcessedResult;
-import prelude.api.packet.packets.ResentHandshakePacket;
+import prelude.api.packet.packets.inbound.HandshakePacket;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -42,13 +42,13 @@ public final class PreludePlayerInfo extends ProcessedResult {
 
     @Override
     public String toString() {
-        return ResentHandshakePacket.HANDSHAKE_PACKET_FORMAT
-                .replace("%resVer%", resentVersion)
-                .replace("%patchNum%", resentPatchNum)
-                .replace("%clientType%", clientType)
-                .replace("%isRankedPlayer%", isRankedPlayer + "")
-                .replace("%modsOn%",
-                        Arrays.toString(enabledMods).substring(1, enabledMods.length - 1));
+        return "PreludePlayerInfo:" + HandshakePacket.HANDSHAKE_PACKET_FORMAT
+                        .replace("%resVer%", resentVersion)
+                        .replace("%patchNum%", resentPatchNum)
+                        .replace("%clientType%", clientType)
+                        .replace("%isRankedPlayer%", isRankedPlayer + "")
+                        .replace("%modsOn%",
+                                Arrays.toString(enabledMods).substring(1, enabledMods.length - 1));
     }
 
     public String getUsername() {

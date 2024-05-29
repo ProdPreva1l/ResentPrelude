@@ -3,8 +3,6 @@ package prelude.api.mods;
 import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
 
-import java.util.Arrays;
-
 public abstract class AnchorRenderer extends ResentMod {
     protected AnchorRenderer() {
         super();
@@ -19,7 +17,7 @@ public abstract class AnchorRenderer extends ResentMod {
      * @param charge 1 to 3, describing the amount of glowstone in the anchor
      */
     public void sendInteractedAnchorPacket(PreludePlayer preludePlayer, int x, int y, int z, int charge) {
-        preludePlayer.sendPacket(this.getModId(),
+        preludePlayer.sendPacket(this.getReceiverId(),
                 this.getData("update")
                         .replace("%x%", x + "")
                         .replace("%y%", y + "")
@@ -32,7 +30,7 @@ public abstract class AnchorRenderer extends ResentMod {
     }
 
     @Override
-    public final String getModId() {
+    public final String getReceiverId() {
         return "anchor_renderer";
     }
 }

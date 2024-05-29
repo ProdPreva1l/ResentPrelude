@@ -1,4 +1,4 @@
-package prelude.api.packet.packets;
+package prelude.api.packet.packets.inbound;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -11,7 +11,7 @@ import prelude.api.packet.processedresults.PreludePlayerInfo;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public final class ResentHandshakePacket extends InboundPacket {
+public final class HandshakePacket extends InboundPacket {
     public static final String HANDSHAKE_PACKET_FORMAT =
             "{" +
                     "\"username\":\"%username%\"," +
@@ -34,16 +34,16 @@ public final class ResentHandshakePacket extends InboundPacket {
 
     private PreludePlayerInfo preludePlayerInfo = PreludePlayerInfo.UNKNOWN_INFO;
 
-    public ResentHandshakePacket() {
+    public HandshakePacket() {
         super();
         preludePlayerInfo = PreludePlayerInfo.UNKNOWN_INFO;
     }
 
-    public ResentHandshakePacket(String message) {
+    public HandshakePacket(String message) {
         PreludePlayerInfo result;
 
         try {
-            JsonElement element = new JsonParser().parse(message);
+            JsonElement element = JsonParser.parseString(message);
             JsonObject json = element.getAsJsonObject();
             result = new PreludePlayerInfo(
                     json.get("username").getAsString(),
@@ -66,8 +66,8 @@ public final class ResentHandshakePacket extends InboundPacket {
     }
 
     @Override
-    protected ResentHandshakePacket createNewInstanceWithData(String data) {
-        return new ResentHandshakePacket(data);
+    protected HandshakePacket createNewInstanceWithData(String data) {
+        return new HandshakePacket(data);
     }
 
     @Override
@@ -82,15 +82,15 @@ public final class ResentHandshakePacket extends InboundPacket {
 
     @Override
     public String toString() {
-        return preludePlayerInfo == null ? "null" :preludePlayerInfo.toString();
+        return preludePlayerInfo == null ? "HandshakePacket:null" :
+                "HandshakePacket:" + preludePlayerInfo.toString().substring(17);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ResentHandshakePacket)) return false;
-        ResentHandshakePacket that = (ResentHandshakePacket) o;
+        if (!(o instanceof HandshakePacket)) return false;
+        HandshakePacket that = (HandshakePacket) o;
         return Objects.equals(preludePlayerInfo, that.preludePlayerInfo);
     }
-
 }

@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import prelude.adapter.BukkitPlayerAdapter;
 import prelude.adapter.VersionAdapter;
+import prelude.api.packet.InboundPacket;
 import prelude.api.packet.Packet;
 import prelude.api.Prelude;
 import prelude.api.packet.PacketManager;
@@ -130,7 +131,7 @@ public final class BaseImplementation implements Listener {
             PreludePlugin.getInstance().debug("Player: {}".replace("{}", player.getName()));
             PreludePlugin.getInstance().debug("Message: {}".replace("{}", new String(message)));
 
-            Packet pkt = PacketManager.getInboundPacketFromString(new String(message));
+            InboundPacket pkt = PacketManager.getInboundPacketFromString(new String(message));
 
             if (pkt == null) {
                 PreludePlugin.getInstance().debug("Received message did not correspond to any packet!");

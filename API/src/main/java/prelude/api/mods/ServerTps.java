@@ -3,8 +3,6 @@ package prelude.api.mods;
 import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
 
-import java.util.Arrays;
-
 public abstract class ServerTps extends ResentMod {
     protected ServerTps() {
         super();
@@ -12,12 +10,12 @@ public abstract class ServerTps extends ResentMod {
     }
 
     public void sendServerTpsUpdate(PreludePlayer preludePlayer, double currentTps) {
-        preludePlayer.sendPacket(this.getModId(),
+        preludePlayer.sendPacket(this.getReceiverId(),
                 this.getData("tps_count").replace("%server-tps%", currentTps + ""));
     }
 
     @Override
-    public final String getModId() {
+    public final String getReceiverId() {
         return "server_tps";
     }
 }
