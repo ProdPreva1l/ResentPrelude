@@ -3,7 +3,6 @@ package prelude.api.packet.packets;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import jdk.nashorn.internal.parser.JSONParser;
 import prelude.api.packet.InboundPacket;
 import prelude.api.packet.PacketManager;
 import prelude.api.packet.ProcessedResult;
