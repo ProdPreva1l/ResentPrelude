@@ -130,7 +130,7 @@ public final class BaseImplementation implements Listener {
             PreludePlugin.getInstance().debug("Player: {}".replace("{}", player.getName()));
             PreludePlugin.getInstance().debug("Message: {}".replace("{}", new String(message)));
 
-            Packet pkt = PacketManager.getPacketFromString(new String(message));
+            Packet pkt = PacketManager.getInboundPacketFromString(new String(message));
 
             if (pkt == null) {
                 PreludePlugin.getInstance().debug("Received message did not correspond to any packet!");

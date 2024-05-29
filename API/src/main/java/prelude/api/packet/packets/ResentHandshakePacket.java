@@ -1,15 +1,15 @@
 package prelude.api.packet.packets;
 
 import org.json.JSONObject;
+import prelude.api.packet.InboundPacket;
 import prelude.api.packet.PacketManager;
 import prelude.api.packet.ProcessedResult;
 import prelude.api.packet.processedresults.PreludePlayerInfo;
-import prelude.api.packet.Packet;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public final class ResentHandshakePacket extends Packet {
+public final class ResentHandshakePacket extends InboundPacket {
     public static final String HANDSHAKE_PACKET_FORMAT =
             "{" +
                     "\"username\":\"%username%\"," +
@@ -63,7 +63,7 @@ public final class ResentHandshakePacket extends Packet {
     }
 
     @Override
-    protected Packet createNewInstanceWithData(String data) {
+    protected ResentHandshakePacket createNewInstanceWithData(String data) {
         return new ResentHandshakePacket(data);
     }
 

@@ -7,14 +7,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class PacketManager {
-    protected static Set<Packet> packets = new HashSet<>();
+    protected static Set<InboundPacket> inboundPackets = new HashSet<>();
+    protected static Set<OutboundPacket> outboundPackets = new HashSet<>();
 
     public abstract ProcessedResult processHandshakeInfo(PreludePlayerInfo info);
 
-    public static Packet getPacketFromString(String string) {
-        for (Packet packet : packets)
-            if (packet.getPattern().matcher(string.trim().toLowerCase()).matches())
-                return packet.createNewInstanceWithData(string);
+    public static InboundPacket getInboundPacketFromString(String string) {
+        for (InboundPacket packet : inboundPackets)
+                if (packet.getPattern().matcher(string.trim().toLowerCase()).matches())
+                    return packet.createNewInstanceWithData(string);
 
         return null;
     }
