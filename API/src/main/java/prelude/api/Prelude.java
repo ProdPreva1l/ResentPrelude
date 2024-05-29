@@ -1,6 +1,8 @@
 package prelude.api;
 
-import prelude.network.PacketManager;
+import jdk.nashorn.internal.ir.annotations.Immutable;
+import org.jetbrains.annotations.ApiStatus;
+import prelude.protocol.PacketManager;
 
 import java.util.Optional;
 import java.util.Set;
@@ -21,12 +23,24 @@ public abstract class Prelude {
     private static PacketManager packetManager = null;
 
     /**
-     * Get an actor from a UUID, the player who owns the UUID must be online
-     * @param uuid uuid of the actor to get
-     * @return an Actor object
+     * Get a prelude player from a UUID, the player who owns the UUID must be online
+     * @param uuid uuid of the player to get
+     * @return an PreludePlayer object
+     * @throws IllegalStateException if the player is not online
+     * @deprecated in favour of {@link #getPreludePlayer(UUID)}
+     * @implSpec THIS METHOD IS MARKED FOR REMOVAL
+     */
+    @Deprecated
+    @ApiStatus.ScheduledForRemoval
+    public abstract PreludePlayer getActor(UUID uuid) throws IllegalStateException;
+
+    /**
+     * Get a prelude player from a UUID, the player who owns the UUID must be online
+     * @param uuid uuid of the player to get
+     * @return a PreludePlayer object
      * @throws IllegalStateException if the player is not online
      */
-    public abstract PreludePlayer getActor(UUID uuid) throws IllegalStateException;
+    public abstract PreludePlayer getPreludePlayer(UUID uuid) throws IllegalStateException;
 
     /**
      * Run checks on all mods to either send the disable or the init packet to the client
@@ -60,6 +74,7 @@ public abstract class Prelude {
      * Get the API instance.
      * @return the instance of the api
      */
+    @Immutable
     public static Prelude getInstance() {
         return instance;
     }
@@ -68,6 +83,8 @@ public abstract class Prelude {
      * Get the PacketManager instance.
      * @return the instance of the packet manager
      */
+    @Immutable
+    @ApiStatus.Internal
     public static PacketManager getPacketManager() {
         return packetManager;
     }
@@ -76,6 +93,7 @@ public abstract class Prelude {
      * Set the instance.
      * @throws IllegalStateException if the instance is already assigned
      */
+    @ApiStatus.Internal
     public static void setInstance(Prelude newInstance) {
         if (instance != null) {
             throw new IllegalStateException("Instance has already been set");
@@ -85,8 +103,9 @@ public abstract class Prelude {
 
     /**
      * Set the instance of the packet manager.
-     * @throws IllegalStateException if the packet maanager instance is already assigned
+     * @throws IllegalStateException if the packet manager instance is already assigned
      */
+    @ApiStatus.Internal
     public static void setPacketManager(PacketManager newPacketManager) {
         if (packetManager != null) {
             throw new IllegalStateException("Packet Manager instance has already been set");

@@ -1,4 +1,4 @@
-package prelude.network;
+package prelude.protocol;
 
 import java.util.regex.Pattern;
 
@@ -8,8 +8,10 @@ public abstract class ServerBoundPacket extends Packet {
     }
 
     public abstract ProcessedResult processPacket(PacketManager manager);
+
     protected ServerBoundPacket createNewInstanceWithData(String data) {
         return null;
     }
+
     protected abstract Pattern getPattern();
 }

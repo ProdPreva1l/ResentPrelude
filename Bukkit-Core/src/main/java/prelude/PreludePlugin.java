@@ -1,32 +1,32 @@
 package prelude;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.JavaPluginLoader;
+import org.jetbrains.annotations.TestOnly;
 import prelude.adapter.VersionAdapter;
 import prelude.adapter.impl.Adapter_1_11;
 import prelude.adapter.impl.Adapter_1_16_5;
 import prelude.adapter.impl.Adapter_1_9;
 import prelude.api.Prelude;
 import prelude.mods.*;
-import prelude.network.PacketManager;
 
 import java.io.File;
 import java.util.Optional;
 
+@NoArgsConstructor
 public final class PreludePlugin extends JavaPlugin {
-    private static PreludePlugin instance;
+    @Getter private static PreludePlugin instance;
     private VersionAdapter adapter = null;
 
+    @TestOnly
     @SuppressWarnings("unused")
     private PreludePlugin(JavaPluginLoader loader, PluginDescriptionFile description,
                           File dataFolder, File file) {
         super(loader, description, dataFolder, file);
-    }
-
-    private PreludePlugin() {
-        super();
     }
 
     @Override
@@ -67,6 +67,8 @@ public final class PreludePlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        saveDefaultConfig();
+        reloadConfig();
 
         new BukkitPrelude();
 
@@ -81,15 +83,13 @@ public final class PreludePlugin extends JavaPlugin {
         new BukkitServerTps();
         new BukkitAnchorRenderer();
 
-        BukkitPacketManager.initPackets();
-
         getServer().getPluginManager().registerEvents(new BaseImplementation(this), this);
       
         getServer().getMessenger().registerOutgoingPluginChannel(this, Prelude.CHANNEL);
         getServer().getMessenger().registerIncomingPluginChannel(
                 this,
                 Prelude.CHANNEL,
-                new BaseImplementation.ResentClientMessageListener(this));
+                new BaseImplementation.ResentClientMessageListener());
 
         getLogger().info("Fully Started Resent Client's Prelude API");
     }
@@ -107,10 +107,6 @@ public final class PreludePlugin extends JavaPlugin {
 
     public ConfigurationSection getModConfig() {
         return getConfig().getConfigurationSection("mods");
-    }
-
-    public static PreludePlugin getInstance() {
-        return instance;
     }
 
     public Optional<VersionAdapter> getAdapter() {

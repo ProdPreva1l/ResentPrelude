@@ -1,11 +1,11 @@
 package prelude.adapter;
 
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import prelude.api.Prelude;
 import prelude.api.PreludePlayer;
-import org.bukkit.entity.Player;
-import prelude.network.ClientBoundPacket;
-import prelude.network.processedresults.PreludePlayerInfo;
+import prelude.protocol.ClientBoundPacket;
+import prelude.protocol.processedresults.PreludePlayerInfo;
 
 import java.util.HashMap;
 import java.util.Map;

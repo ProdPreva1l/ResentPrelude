@@ -2,9 +2,8 @@ package prelude.api.mods;
 
 import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
-import prelude.network.PacketManager;
-import prelude.network.packets.clientbound.AnchorRendererPacket;
-import prelude.network.packets.clientbound.AnchorRendererPacket.AnchorRendererPacketBuilder;
+import prelude.protocol.packets.clientbound.AnchorRendererPacket;
+import prelude.protocol.packets.clientbound.AnchorRendererPacket.AnchorRendererPacketBuilder;
 
 public abstract class AnchorRenderer extends ResentMod {
     protected AnchorRenderer() {
@@ -19,8 +18,7 @@ public abstract class AnchorRenderer extends ResentMod {
      * @param charge 1 to 3, describing the amount of glowstone in the anchor
      */
     public void sendInteractedAnchorPacket(PreludePlayer preludePlayer, int x, int y, int z, int charge) {
-        AnchorRendererPacketBuilder builder = (AnchorRendererPacketBuilder)
-                PacketManager.getOutboundPacketBuilder(AnchorRendererPacket.class);
+        AnchorRendererPacketBuilder builder = AnchorRendererPacket.builder();
 
         preludePlayer.sendPacket(
                 builder

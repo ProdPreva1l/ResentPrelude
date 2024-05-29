@@ -5,8 +5,8 @@ import com.google.common.collect.ImmutableSet;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import prelude.adapter.BukkitPlayerAdapter;
-import prelude.api.PreludePlayer;
 import prelude.api.Prelude;
+import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
 
 import java.lang.reflect.Modifier;
@@ -26,6 +26,11 @@ public final class BukkitPrelude extends Prelude {
 
     @Override
     public PreludePlayer getActor(UUID uuid) throws IllegalStateException {
+        return getPreludePlayer(uuid);
+    }
+
+    @Override
+    public PreludePlayer getPreludePlayer(UUID uuid) throws IllegalStateException {
         Player player = Bukkit.getPlayer(uuid);
         if (player == null) {
             throw new IllegalStateException("An actor must be online! Attempted UUID: " + uuid.toString());
@@ -35,10 +40,7 @@ public final class BukkitPrelude extends Prelude {
 
     @Override
     public void validateConnection(PreludePlayer preludePlayer) {
-        Player player = Bukkit.getPlayer(preludePlayer.getUuid());
-
-        if (player == null)
-            player = Bukkit.getPlayer(preludePlayer.getUsername());
+        //Player player = Bukkit.getPlayer(preludePlayer.getUuid());
 
         PreludePlugin.getInstance().debug("Validating mods for " + preludePlayer);
         for (ResentMod mod : mods) {

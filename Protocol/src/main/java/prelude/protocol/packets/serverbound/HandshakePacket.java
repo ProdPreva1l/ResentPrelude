@@ -1,12 +1,12 @@
-package prelude.network.packets.serverbound;
+package prelude.protocol.packets.serverbound;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import prelude.network.ServerBoundPacket;
-import prelude.network.PacketManager;
-import prelude.network.ProcessedResult;
-import prelude.network.processedresults.PreludePlayerInfo;
+import prelude.protocol.PacketManager;
+import prelude.protocol.ProcessedResult;
+import prelude.protocol.ServerBoundPacket;
+import prelude.protocol.processedresults.PreludePlayerInfo;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -32,12 +32,7 @@ public final class HandshakePacket extends ServerBoundPacket {
                     "\"enabled-mods\":\".+\"" +
             "}";
 
-    private PreludePlayerInfo preludePlayerInfo = PreludePlayerInfo.UNKNOWN_INFO;
-
-    public HandshakePacket() {
-        super();
-        preludePlayerInfo = PreludePlayerInfo.UNKNOWN_INFO;
-    }
+    private final PreludePlayerInfo preludePlayerInfo;
 
     public HandshakePacket(String message) {
         PreludePlayerInfo result;

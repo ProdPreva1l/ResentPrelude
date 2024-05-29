@@ -2,9 +2,8 @@ package prelude.api.mods;
 
 import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
-import prelude.network.PacketManager;
-import prelude.network.packets.clientbound.OffhandPacket;
-import prelude.network.packets.clientbound.OffhandPacket.OffhandPacketBuilder;
+import prelude.protocol.packets.clientbound.OffhandPacket;
+import prelude.protocol.packets.clientbound.OffhandPacket.OffhandPacketBuilder;
 
 public abstract class OffHand extends ResentMod {
 
@@ -21,8 +20,7 @@ public abstract class OffHand extends ResentMod {
     }
 
     private void sendOffhandEvent(PreludePlayer preludePlayer, String itemId, boolean enchanted, String action) {
-        OffhandPacketBuilder builder = (OffhandPacketBuilder)
-                PacketManager.getOutboundPacketBuilder(OffhandPacket.class);
+        OffhandPacketBuilder builder = OffhandPacket.builder();
 
         preludePlayer.sendPacket(
                 builder

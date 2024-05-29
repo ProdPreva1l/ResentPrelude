@@ -2,9 +2,8 @@ package prelude.api.mods;
 
 import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
-import prelude.network.PacketManager;
-import prelude.network.packets.clientbound.TotemPoppedPacket;
-import prelude.network.packets.clientbound.TotemPoppedPacket.TotemPoppedPacketBuilder;
+import prelude.protocol.packets.clientbound.TotemPoppedPacket;
+import prelude.protocol.packets.clientbound.TotemPoppedPacket.TotemPoppedPacketBuilder;
 
 public abstract class TotemTweaks extends ResentMod {
     protected TotemTweaks() {
@@ -12,8 +11,7 @@ public abstract class TotemTweaks extends ResentMod {
     }
 
     public void sendTotemPoppedEvent(PreludePlayer preludePlayer) {
-        TotemPoppedPacketBuilder builder = (TotemPoppedPacketBuilder)
-                PacketManager.getOutboundPacketBuilder(TotemPoppedPacket.class);
+        TotemPoppedPacketBuilder builder = TotemPoppedPacket.builder();
 
         preludePlayer.sendPacket(builder.receiver(this.getReceiverId()).build());
     }

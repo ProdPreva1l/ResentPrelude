@@ -14,9 +14,9 @@ import prelude.mods.BukkitAnchorRenderer;
 import prelude.mods.BukkitOffHand;
 import prelude.mods.BukkitServerTps;
 import prelude.mods.BukkitTotemTweaks;
-import prelude.network.ServerBoundPacket;
-import prelude.network.PacketManager;
-import prelude.network.ProcessedResult;
+import prelude.protocol.PacketManager;
+import prelude.protocol.ProcessedResult;
+import prelude.protocol.ServerBoundPacket;
 
 import java.lang.reflect.Field;
 import java.util.Optional;
@@ -117,11 +117,6 @@ public final class BaseImplementation implements Listener {
     }
 
     public static class ResentClientMessageListener implements PluginMessageListener {
-        private PreludePlugin plugin;
-
-        public ResentClientMessageListener(PreludePlugin plugin) {
-            this.plugin = plugin;
-        }
 
         @Override
         public void onPluginMessageReceived(String channel, Player player, byte[] message) {
@@ -139,7 +134,7 @@ public final class BaseImplementation implements Listener {
 
             ProcessedResult result = pkt.processPacket(Prelude.getPacketManager());
             if (result != null) {
-
+                // Do nothing
             }
         }
     }

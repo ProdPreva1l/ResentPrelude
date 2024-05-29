@@ -2,9 +2,8 @@ package prelude.api.mods;
 
 import prelude.api.PreludePlayer;
 import prelude.api.ResentMod;
-import prelude.network.PacketManager;
-import prelude.network.packets.clientbound.ServerTpsPacket;
-import prelude.network.packets.clientbound.ServerTpsPacket.ServerTpsPacketBuilder;
+import prelude.protocol.packets.clientbound.ServerTpsPacket;
+import prelude.protocol.packets.clientbound.ServerTpsPacket.ServerTpsPacketBuilder;
 
 public abstract class ServerTps extends ResentMod {
     protected ServerTps() {
@@ -12,8 +11,7 @@ public abstract class ServerTps extends ResentMod {
     }
 
     public void sendServerTpsUpdate(PreludePlayer preludePlayer, double currentTps) {
-        ServerTpsPacketBuilder builder = (ServerTpsPacketBuilder)
-                PacketManager.getOutboundPacketBuilder(ServerTpsPacket.class);
+        ServerTpsPacketBuilder builder = ServerTpsPacket.builder();
 
         preludePlayer.sendPacket(
                 builder

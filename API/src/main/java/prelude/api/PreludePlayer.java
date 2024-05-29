@@ -1,33 +1,22 @@
 package prelude.api;
 
-import prelude.network.ClientBoundPacket;
-import prelude.network.processedresults.PreludePlayerInfo;
+import lombok.Getter;
+import prelude.protocol.ClientBoundPacket;
+import prelude.protocol.processedresults.PreludePlayerInfo;
 
 import java.util.UUID;
 
+@Getter
 @SuppressWarnings("unused")
 public abstract class PreludePlayer {
     private final String username;
     private final UUID uuid;
-
-    private final PreludePlayerInfo preludePlayerInfo;
+    private final PreludePlayerInfo playerInfo;
 
     public PreludePlayer(String username, UUID uuid, PreludePlayerInfo preludePlayerInfo) {
         this.username = username;
         this.uuid = uuid;
-        this.preludePlayerInfo = preludePlayerInfo;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public PreludePlayerInfo getPlayerInfo() {
-        return preludePlayerInfo;
+        this.playerInfo = preludePlayerInfo;
     }
 
     /**
