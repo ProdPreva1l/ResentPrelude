@@ -1,6 +1,9 @@
 package prelude.api.packet.packets;
 
-import org.json.JSONObject;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import jdk.nashorn.internal.parser.JSONParser;
 import prelude.api.packet.InboundPacket;
 import prelude.api.packet.PacketManager;
 import prelude.api.packet.ProcessedResult;
@@ -41,14 +44,15 @@ public final class ResentHandshakePacket extends InboundPacket {
         PreludePlayerInfo result;
 
         try {
-            JSONObject json = new JSONObject(message);
+            JsonElement element = new JsonParser().parse(message);
+            JsonObject json = element.getAsJsonObject();
             result = new PreludePlayerInfo(
-                    json.getString("username"),
-                    json.getString("resent-version"),
-                    json.getString("patch-num"),
-                    json.getString("client-type"),
-                    Boolean.parseBoolean(json.getString("is-ranked-player")),
-                    json.getString("enabled-mods").split(",")
+                    json.get("username").getAsString(),
+                    json.get("resent-version").getAsString(),
+                    json.get("patch-num").getAsString(),
+                    json.get("client-type").getAsString(),
+                    Boolean.parseBoolean(json.get("is-ranked-player").getAsString()),
+                    json.get("enabled-mods").getAsString().split(",")
             );
         } catch (Exception e) {
             result = PreludePlayerInfo.UNKNOWN_INFO;

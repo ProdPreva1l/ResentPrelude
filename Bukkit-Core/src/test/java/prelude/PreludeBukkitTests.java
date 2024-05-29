@@ -15,25 +15,24 @@ public class PreludeBukkitTests {
     // ADDING THE PRIVATE CONSTRUCTOR BREAKS THE PLUGIN
     // NOT ADDING IT BREAKS THE TESTS?!?!
 
+    @BeforeAll
+    @DisplayName("Test Plugin Initialization")
+    public static void setUpPlugin() {
+        server = MockBukkit.mock();
+        server.addPlayer("Test_Player");
+        plugin = MockBukkit.load(PreludePlugin.class);
+    }
 
-//    @BeforeAll
-//    @DisplayName("Test Plugin Initialization")
-//    public static void setUpPlugin() {
-//        server = MockBukkit.mock();
-//        server.addPlayer("Test_Player");
-//        plugin = MockBukkit.load(PreludePlugin.class);
-//    }
-//
-//    @AfterAll
-//    @DisplayName("Tear down Plugin")
-//    public static void tearDownPlugin() {
-//        MockBukkit.unmock();
-//    }
-//
-//    @Order(1)
-//    @Test
-//    @DisplayName("Test Adapter")
-//    public void testVersionAdapter() {
-//        Assertions.assertTrue(plugin.getAdapter().isPresent());
-//    }
+    @AfterAll
+    @DisplayName("Tear down Plugin")
+    public static void tearDownPlugin() {
+        MockBukkit.unmock();
+    }
+
+    @Order(1)
+    @Test
+    @DisplayName("Test Adapter")
+    public void testVersionAdapter() {
+        Assertions.assertTrue(plugin.getAdapter().isPresent());
+    }
 }

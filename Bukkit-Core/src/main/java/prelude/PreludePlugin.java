@@ -1,7 +1,9 @@
 package prelude;
 
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.java.JavaPluginLoader;
 import prelude.adapter.VersionAdapter;
 import prelude.adapter.impl.Adapter_1_11;
 import prelude.adapter.impl.Adapter_1_16_5;
@@ -11,18 +13,22 @@ import prelude.api.Prelude;
 import prelude.api.packet.PacketManager;
 import prelude.mods.*;
 
+import java.io.File;
 import java.util.Optional;
 
 public final class PreludePlugin extends JavaPlugin {
     private static PreludePlugin instance;
     private VersionAdapter adapter = null;
 
-    // Throws Abnormal Plugin Type
-//    @SuppressWarnings("unused")
-//    private PreludePlugin(JavaPluginLoader loader, PluginDescriptionFile description,
-//                          File dataFolder, File file) {
-//        super(loader, description, dataFolder, file);
-//    }
+    @SuppressWarnings("unused")
+    private PreludePlugin(JavaPluginLoader loader, PluginDescriptionFile description,
+                          File dataFolder, File file) {
+        super(loader, description, dataFolder, file);
+    }
+
+    private PreludePlugin() {
+        super();
+    }
 
     @Override
     public void onLoad() {
