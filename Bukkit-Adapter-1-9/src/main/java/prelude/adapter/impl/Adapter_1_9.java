@@ -54,10 +54,10 @@ public final class Adapter_1_9 implements VersionAdapter {
                 }
                 offhandItemMap.replace(player, currentOffhand);
                 if (currentOffhand.getType() == Material.AIR) {
-                    offhandMod.sendOffhandUnEquipEvent(BukkitPlayerAdapter.adaptPlayer(plugin, player),
+                    offhandMod.sendOffhandUnEquipEvent(BukkitPlayerAdapter.getPreludePlayer(plugin, player),
                             Material.AIR.name(), false);
                 } else {
-                    offhandMod.sendOffhandEquipEvent(BukkitPlayerAdapter.adaptPlayer(plugin, player),
+                    offhandMod.sendOffhandEquipEvent(BukkitPlayerAdapter.getPreludePlayer(plugin, player),
                             currentOffhand.getType().name(), !currentOffhand.getEnchantments().isEmpty());
                 }
             }

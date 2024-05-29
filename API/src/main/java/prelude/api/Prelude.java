@@ -1,5 +1,6 @@
 package prelude.api;
 
+import prelude.network.PacketManager;
 
 import java.util.Optional;
 import java.util.Set;
@@ -13,6 +14,11 @@ public abstract class Prelude {
      * The API instance.
      */
     private static Prelude instance = null;
+
+    /**
+     * The PacketManager instance.
+     */
+    private static PacketManager packetManager = null;
 
     /**
      * Get an actor from a UUID, the player who owns the UUID must be online
@@ -59,6 +65,14 @@ public abstract class Prelude {
     }
 
     /**
+     * Get the PacketManager instance.
+     * @return the instance of the packet manager
+     */
+    public static PacketManager getPacketManager() {
+        return packetManager;
+    }
+
+    /**
      * Set the instance.
      * @throws IllegalStateException if the instance is already assigned
      */
@@ -67,5 +81,16 @@ public abstract class Prelude {
             throw new IllegalStateException("Instance has already been set");
         }
         instance = newInstance;
+    }
+
+    /**
+     * Set the instance of the packet manager.
+     * @throws IllegalStateException if the packet maanager instance is already assigned
+     */
+    public static void setPacketManager(PacketManager newPacketManager) {
+        if (packetManager != null) {
+            throw new IllegalStateException("Packet Manager instance has already been set");
+        }
+        packetManager = newPacketManager;
     }
 }
