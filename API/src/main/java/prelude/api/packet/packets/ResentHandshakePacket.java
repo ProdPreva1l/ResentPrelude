@@ -32,7 +32,7 @@ public final class ResentHandshakePacket extends InboundPacket {
                     "\"enabled-mods\":\".+\"" +
             "}";
 
-    private final PreludePlayerInfo preludePlayerInfo;
+    private PreludePlayerInfo preludePlayerInfo = PreludePlayerInfo.UNKNOWN_INFO;
 
     public ResentHandshakePacket() {
         super();
