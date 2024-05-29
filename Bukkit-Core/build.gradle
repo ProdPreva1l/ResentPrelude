@@ -9,7 +9,6 @@ dependencies {
     compileOnly project(":Bukkit-Adapter")
     compileOnly project(":API")
 
-    implementation project(":Protocol")
     implementation project(":Bukkit-Adapter-1-9")
     implementation project(":Bukkit-Adapter-1-11")
     implementation project(":Bukkit-Adapter-1-16-5")

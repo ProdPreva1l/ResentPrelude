@@ -21,7 +21,6 @@ public final class BukkitPrelude extends Prelude {
 
     public BukkitPrelude() {
         setInstance(this);
-        setPacketManager(new BukkitPacketManager());
     }
 
     @Override
@@ -30,7 +29,7 @@ public final class BukkitPrelude extends Prelude {
         if (player == null) {
             throw new IllegalStateException("An actor must be online! Attempted UUID: " + uuid.toString());
         }
-        return BukkitPlayerAdapter.getPreludePlayer(PreludePlugin.getInstance(), player);
+        return BukkitPlayerAdapter.adaptPlayer(PreludePlugin.getInstance(), player);
     }
 
     @Override
