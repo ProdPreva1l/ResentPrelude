@@ -1,3 +1,5 @@
+# MOVED TO https://github.com/The-Resent-Team/Prelude-API
+
 [![PR Tests](https://github.com/ProdPreva1l/ResentPrelude/actions/workflows/pr_tests.yml/badge.svg?branch=master)](https://github.com/ProdPreva1l/ResentPrelude/actions/workflows/pr_tests.yml)
 
 # Prelude API (Resent Clients API for servers)
